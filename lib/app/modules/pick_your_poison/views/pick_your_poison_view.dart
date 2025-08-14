@@ -200,8 +200,15 @@ class PickYourPoisonView extends GetView<PickYourPoisonController> {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
+                  hoverColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+
                   onTap: () {
-                    Get.offAllNamed(Routes.CHOOSE_YOUR_TARGETS);
+                    if (anySelected) {
+                      Get.offAllNamed(Routes.CHOOSE_YOUR_TARGETS);
+                    }
                   },
                   child: AnimatedContainer(
                     duration: Duration(milliseconds: 300),
