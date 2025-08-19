@@ -146,7 +146,7 @@ class StayLoopView extends GetView<StayLoopController> {
             Spacer(),
             InkWell(
               onTap: () {
-                Get.offAllNamed(Routes.HOME);
+                Get.offAllNamed(Routes.MAIN_HOME);
               },
               child: Container(
                 width: double.infinity,

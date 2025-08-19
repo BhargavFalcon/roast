@@ -3,18 +3,22 @@ part of 'app_pages.dart';
 
 abstract class Routes {
   Routes._();
-  static const HOME = _Paths.HOME;
   static const PICK_YOUR_POISON = _Paths.PICK_YOUR_POISON;
   static const CHOOSE_YOUR_TARGETS = _Paths.CHOOSE_YOUR_TARGETS;
   static const STAY_LOOP = _Paths.STAY_LOOP;
   static const MAIN_HOME = _Paths.MAIN_HOME;
+  static const ROAST_SCREEN = _Paths.ROAST_SCREEN;
+  static const HISTORY_SCREEN = _Paths.HISTORY_SCREEN;
+  static const SETTING_SCREEN = _Paths.SETTING_SCREEN;
 }
 
 abstract class _Paths {
   _Paths._();
-  static const HOME = '/home';
   static const PICK_YOUR_POISON = '/pick-your-poison';
   static const CHOOSE_YOUR_TARGETS = '/choose-your-targets';
   static const STAY_LOOP = '/stay-loop';
   static const MAIN_HOME = '/main-home';
+  static const ROAST_SCREEN = '/roast-screen';
+  static const HISTORY_SCREEN = '/history-screen';
+  static const SETTING_SCREEN = '/setting-screen';
 }

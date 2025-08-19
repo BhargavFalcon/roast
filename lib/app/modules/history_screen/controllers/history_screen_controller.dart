@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-class HomeController extends GetxController {
-  //TODO: Implement HomeController
+class HistoryScreenController extends GetxController {
+  //TODO: Implement HistoryScreenController
 
   final count = 0.obs;
   @override
