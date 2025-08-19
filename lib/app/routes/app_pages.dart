@@ -4,6 +4,8 @@ import '../modules/choose_your_targets/bindings/choose_your_targets_binding.dart
 import '../modules/choose_your_targets/views/choose_your_targets_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/main_home/bindings/main_home_binding.dart';
+import '../modules/main_home/views/main_home_view.dart';
 import '../modules/pick_your_poison/bindings/pick_your_poison_binding.dart';
 import '../modules/pick_your_poison/views/pick_your_poison_view.dart';
 import '../modules/stay_loop/bindings/stay_loop_binding.dart';
@@ -14,7 +16,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.PICK_YOUR_POISON;
+  static const INITIAL = Routes.MAIN_HOME;
 
   static final routes = [
     GetPage(
@@ -42,6 +44,11 @@ class AppPages {
       transition: Transition.noTransition,
       transitionDuration: Duration.zero,
       binding: StayLoopBinding(),
+    ),
+    GetPage(
+      name: _Paths.MAIN_HOME,
+      page: () => const MainHomeView(),
+      binding: MainHomeBinding(),
     ),
   ];
 }
