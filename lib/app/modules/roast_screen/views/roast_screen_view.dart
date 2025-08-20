@@ -332,7 +332,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
                       ),
                     ),
                   ),
-                  SizedBox(height: MySize.getHeight(20)),
+                  SizedBox(height: MySize.getHeight(15)),
                   Container(
                     decoration: BoxDecoration(
                       color: Color(0xfffdcc00).withValues(alpha: 0.05),
@@ -355,8 +355,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
                             child: Padding(
                               padding: const EdgeInsets.all(9),
                               child: Image.asset(
-                                ImageConstant.fill_medium,
-                                color: ColorConstants.primaryColor,
+                                ImageConstant.tip,
                                 fit: BoxFit.contain,
                               ),
                             ),
@@ -388,6 +387,55 @@ class RoastScreenView extends GetView<RoastScreenController> {
                       ),
                     ),
                   ),
+                  Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.arrow_upward,size: 15,color: ColorConstants.primaryColor,),
+                      SizedBox(width: MySize.getWidth(5)),
+                      Text("Select a photo to start roasting",
+                          style: TextStyle(
+                            fontSize: MySize.getHeight(12),
+                            color: Colors.black54,
+                          )),
+                    ],
+                  ),
+                  SizedBox(height: MySize.getHeight(5)),
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      width: double.infinity,
+                      height: MySize.getHeight(40),
+                      decoration: BoxDecoration(
+                        color: ColorConstants.primaryColor,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              ImageConstant.fill_medium,
+                              height: MySize.getHeight(18),
+                              color: Colors.white,
+                            ),
+                            SizedBox(width: MySize.getWidth(5)),
+                            Text(
+                              "Roast Me",
+                              style: TextStyle(
+                                fontSize: MySize.getHeight(13),
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: MySize.getHeight(10),
+                  )
                 ],
               ),
             );

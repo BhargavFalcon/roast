@@ -17,4 +17,5 @@ class ImageConstant {
   static const fill_high = "${imagePath}fill_high.png";
   static const fill_extreme = "${imagePath}fill_extreme.png";
   static const select = "${imagePath}select.png";
+  static const tip = "${imagePath}tip.png";
 }
