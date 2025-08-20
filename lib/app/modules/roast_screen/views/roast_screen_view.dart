@@ -395,7 +395,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
                       SizedBox(width: MySize.getWidth(5)),
                       Text("Select a photo to start roasting",
                           style: TextStyle(
-                            fontSize: MySize.getHeight(12),
+                            fontSize: MySize.getHeight(10),
                             color: Colors.black54,
                           )),
                     ],
