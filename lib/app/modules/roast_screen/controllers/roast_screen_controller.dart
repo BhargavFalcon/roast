@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:roast/app/constants/image_constants.dart';
 
 class RoastScreenController extends GetxController {
+  final Rx<File?> imageFile = Rx<File?>(null);
   RxList<BurnModel> burnLevelList =
       <BurnModel>[
         BurnModel(

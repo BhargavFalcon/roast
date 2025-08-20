@@ -1,5 +1,10 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:roast/app/constants/color_constant.dart';
 import 'package:roast/app/constants/image_constants.dart';
 import 'package:roast/app/constants/sizeConstant.dart';
@@ -149,35 +154,51 @@ class RoastScreenView extends GetView<RoastScreenController> {
                             ],
                           ),
                           SizedBox(height: MySize.getHeight(20)),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: _photoOptionCard(
-                                  context,
-                                  title: "Gallery",
-                                  image: ImageConstant.gallery,
-                                  gradient: const [
-                                    Color(0xFF4A90E2),
-                                    Color(0xFFD54ADF),
-                                  ],
-                                  borderColor: const Color(0xFF4A90E2),
-                                ),
+                          controller.imageFile.value != null
+                              ? _ImagePreview(context)
+                              : Row(
+                                children: [
+                                  Expanded(
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      onTap: () async {
+                                        await _handleCameraSelection();
+                                      },
+                                      child: _photoOptionCard(
+                                        context,
+                                        title: "Gallery",
+                                        image: ImageConstant.gallery,
+                                        gradient: const [
+                                          Color(0xFF4A90E2),
+                                          Color(0xFFD54ADF),
+                                        ],
+                                        borderColor: const Color(0xFF4A90E2),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: MySize.getWidth(15)),
+                                  Expanded(
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      onTap: () async {
+                                        await _handleGallerySelection();
+                                      },
+                                      child: _photoOptionCard(
+                                        context,
+                                        title: "Camera",
+                                        image: ImageConstant.camera,
+                                        gradient: const [
+                                          Color(0xFFFF7E38),
+                                          Color(0xFFFF3C3C),
+                                        ],
+                                        borderColor: const Color(0xFFFF7E38),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              SizedBox(width: MySize.getWidth(15)),
-                              Expanded(
-                                child: _photoOptionCard(
-                                  context,
-                                  title: "Camera",
-                                  image: ImageConstant.camera,
-                                  gradient: const [
-                                    Color(0xFFFF7E38),
-                                    Color(0xFFFF3C3C),
-                                  ],
-                                  borderColor: const Color(0xFFFF7E38),
-                                ),
-                              ),
-                            ],
-                          ),
                         ],
                       ),
                     ),
@@ -391,13 +412,19 @@ class RoastScreenView extends GetView<RoastScreenController> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.arrow_upward,size: 15,color: ColorConstants.primaryColor,),
+                      Icon(
+                        Icons.arrow_upward,
+                        size: 15,
+                        color: ColorConstants.primaryColor,
+                      ),
                       SizedBox(width: MySize.getWidth(5)),
-                      Text("Select a photo to start roasting",
-                          style: TextStyle(
-                            fontSize: MySize.getHeight(10),
-                            color: Colors.black54,
-                          )),
+                      Text(
+                        "Select a photo to start roasting",
+                        style: TextStyle(
+                          fontSize: MySize.getHeight(10),
+                          color: Colors.black54,
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(height: MySize.getHeight(5)),
@@ -433,15 +460,112 @@ class RoastScreenView extends GetView<RoastScreenController> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: MySize.getHeight(10),
-                  )
+                  SizedBox(height: MySize.getHeight(10)),
                 ],
               ),
             );
           }),
         );
       },
+    );
+  }
+
+  Future<void> _handleCameraSelection() async {
+    final status = await Permission.camera.request();
+
+    if (status.isGranted) {
+      final file = await ImagePicker().pickImage(source: ImageSource.camera);
+      if (file != null) {
+        controller.imageFile.value = File(file.path);
+      }
+    } else if (status.isPermanentlyDenied) {
+      _showCameraPermissionDialog();
+    }
+  }
+
+  Future<void> _handleGallerySelection() async {
+    final file = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (file != null) {
+      controller.imageFile.value = File(file.path);
+    }
+  }
+
+  void _showCameraPermissionDialog() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showCupertinoDialog(
+        context: Get.context!,
+        builder:
+            (BuildContext dialogContext) => CupertinoTheme(
+              data: const CupertinoThemeData(
+                brightness: Brightness.dark,
+                primaryColor: CupertinoColors.white,
+                textTheme: CupertinoTextThemeData(
+                  textStyle: TextStyle(color: CupertinoColors.white),
+                  actionTextStyle: TextStyle(color: CupertinoColors.white),
+                ),
+              ),
+              child: CupertinoAlertDialog(
+                title: const Text(
+                  'Camera Permission required',
+                  style: TextStyle(color: CupertinoColors.white),
+                ),
+                content: const Text(
+                  'Please enable camera access in Settings.',
+                  style: TextStyle(color: Colors.white70),
+                ),
+                actions: [
+                  CupertinoDialogAction(
+                    onPressed: () => Navigator.of(dialogContext).pop(),
+                    child: const Text('Cancel'),
+                  ),
+                  CupertinoDialogAction(
+                    onPressed: () {
+                      Navigator.of(dialogContext).pop();
+                      openAppSettings();
+                    },
+                    child: const Text('Open Settings'),
+                  ),
+                ],
+              ),
+            ),
+      );
+    });
+  }
+
+  Widget _ImagePreview(BuildContext context) {
+    return SizedBox(
+      height: MySize.getHeight(150),
+      child: Stack(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.file(
+              controller.imageFile.value!,
+              height: MySize.getHeight(150),
+              fit: BoxFit.cover,
+            ),
+          ),
+          Positioned(
+            right: 10,
+            top: 10,
+            child: InkWell(
+              onTap: () {
+                controller.imageFile.value = null;
+              },
+              child: Container(
+                height: 25,
+                width: 25,
+                decoration: BoxDecoration(
+                  color: ColorConstants.primaryColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+
+                child: Icon(Icons.close, size: 15, color: Colors.white),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

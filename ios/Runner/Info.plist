@@ -41,6 +41,14 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>We need permission so that you can upload or download images from your photo library and edit them on ImageAI</string>
+    <key>NSCameraUsageDescription</key>
+    <string>We need permission so that you can click photos from your camera and edit them on ImageAI</string>
+    <key>NSUserTrackingUsageDescription</key>
+    <string>We need the permission to process crashes, analytics to deliver the most reliable and quality app to you.</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>We need permission so that you can download the images to your photo library</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
