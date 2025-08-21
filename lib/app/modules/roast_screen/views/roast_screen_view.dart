@@ -432,6 +432,16 @@ class RoastScreenView extends GetView<RoastScreenController> {
                   SizedBox(height: MySize.getHeight(5)),
                   InkWell(
                     onTap: () {
+                      if (controller.imageFile.value == null) {
+                        Get.snackbar(
+                          "Error",
+                          "Please select an image to roast.",
+                          snackPosition: SnackPosition.TOP,
+                          backgroundColor: Colors.black.withValues(alpha: 0.1),
+                          colorText: Colors.black,
+                        );
+                        return;
+                      }
                       Get.toNamed(
                         Routes.ROAST_PREVIEW_SCREEN,
                         arguments: {
