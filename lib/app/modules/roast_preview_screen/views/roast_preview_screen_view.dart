@@ -199,7 +199,7 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
 
               InteractiveViewer(
                 panEnabled: true,
-                boundaryMargin: const EdgeInsets.all(500),
+                boundaryMargin: const EdgeInsets.all(400),
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(),
                   child: Image.file(
