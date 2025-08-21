@@ -49,26 +49,36 @@ class AppPages {
     GetPage(
       name: _Paths.MAIN_HOME,
       page: () => const MainHomeView(),
+      transition: Transition.noTransition,
+      transitionDuration: Duration.zero,
       binding: MainHomeBinding(),
     ),
     GetPage(
       name: _Paths.ROAST_SCREEN,
       page: () => const RoastScreenView(),
+      transition: Transition.noTransition,
+      transitionDuration: Duration.zero,
       binding: RoastScreenBinding(),
     ),
     GetPage(
       name: _Paths.HISTORY_SCREEN,
       page: () => const HistoryScreenView(),
+      transition: Transition.noTransition,
+      transitionDuration: Duration.zero,
       binding: HistoryScreenBinding(),
     ),
     GetPage(
       name: _Paths.SETTING_SCREEN,
       page: () => const SettingScreenView(),
+      transition: Transition.noTransition,
+      transitionDuration: Duration.zero,
       binding: SettingScreenBinding(),
     ),
     GetPage(
       name: _Paths.ROAST_PREVIEW_SCREEN,
       page: () => const RoastPreviewScreenView(),
+      transition: Transition.noTransition,
+      transitionDuration: Duration.zero,
       binding: RoastPreviewScreenBinding(),
     ),
   ];

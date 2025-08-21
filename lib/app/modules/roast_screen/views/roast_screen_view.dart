@@ -544,7 +544,6 @@ class RoastScreenView extends GetView<RoastScreenController> {
 
   Widget _ImagePreview(BuildContext context) {
     return Container(
-      height: MySize.getHeight(150),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         boxShadow: [

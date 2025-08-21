@@ -99,7 +99,7 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                             child: Text(
                               controller.roastList[index],
                               style: TextStyle(
-                                color: ColorConstants.primaryColor,
+                                color: Colors.black,
                                 fontSize: 16,
                               ),
                             ),
