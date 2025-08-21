@@ -181,55 +181,104 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
   }
 
   Future shareRoast({required BuildContext context}) {
+    double posX = MediaQuery.of(context).size.width / 2 - 125;
+    double posY = MediaQuery.of(context).size.height - 300;
+
     return showGeneralDialog(
       context: context,
       barrierColor: Colors.transparent,
       transitionDuration: const Duration(milliseconds: 0),
       pageBuilder: (_, __, ___) {
-        return Scaffold(
-          backgroundColor: Colors.white,
-          body: Stack(
-            fit: StackFit.expand,
-            children: [
-              Image.file(controller.imageFile.value!, fit: BoxFit.cover),
-              BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
-                child: Container(color: Colors.black.withValues(alpha: 0.3)),
-              ),
-
-              InteractiveViewer(
-                panEnabled: true,
-                boundaryMargin: const EdgeInsets.all(400),
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(),
-                  child: Image.file(
-                    controller.imageFile.value!,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-
-              Positioned(
-                top: 50,
-                right: 20,
-                child: InkWell(
-                  onTap: () => Get.back(),
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: const Icon(
-                      Icons.close,
-                      color: Colors.white,
-                      size: 20,
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Scaffold(
+              backgroundColor: Colors.white,
+              body: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.file(controller.imageFile.value!, fit: BoxFit.cover),
+                  BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
+                    child: Container(
+                      color: Colors.black.withValues(alpha: 0.3),
                     ),
                   ),
-                ),
+                  InteractiveViewer(
+                    panEnabled: true,
+                    boundaryMargin: const EdgeInsets.all(400),
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(),
+                      child: Image.file(
+                        controller.imageFile.value!,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: posX,
+                    top: posY,
+                    child: GestureDetector(
+                      onPanUpdate: (details) {
+                        setState(() {
+                          posX += details.delta.dx;
+                          posY += details.delta.dy;
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(16), // thoda andar space
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          mainAxisSize:
+                              MainAxisSize
+                                  .min, // content ke hisaab se size lega
+                          children: [
+                            Text(
+                              "Dynamic Content",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.star, color: Colors.orange),
+                                SizedBox(width: 8),
+                                Text("Rating 4.5"),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 50,
+                    right: 20,
+                    child: InkWell(
+                      onTap: () => Get.back(),
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: const Icon(
+                          Icons.close,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         );
       },
     );
