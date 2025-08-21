@@ -39,7 +39,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
                       Text(
                         "Roast App",
                         style: TextStyle(
-                          fontSize: MySize.getHeight(20),
+                          fontSize: MySize.getHeight(24),
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
@@ -66,7 +66,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
                           children: [
                             Image.asset(
                               ImageConstant.medium,
-                              height: MySize.getHeight(18),
+                              height: MySize.getHeight(25),
                               color: Colors.white,
                             ),
                             const SizedBox(width: 5),
@@ -83,7 +83,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
                       ),
                     ],
                   ),
-                  SizedBox(height: MySize.getHeight(20)),
+                  SizedBox(height: MySize.getHeight(15)),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -120,7 +120,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(9),
+                                  padding: const EdgeInsets.all(6),
                                   child: Image.asset(
                                     ImageConstant.select,
                                     color: ColorConstants.primaryColor,
@@ -135,7 +135,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
                                   Text(
                                     "Select a Photo",
                                     style: TextStyle(
-                                      fontSize: MySize.getHeight(14),
+                                      fontSize: MySize.getHeight(15),
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                       height: 0.9,
@@ -240,7 +240,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(9),
+                                  padding: const EdgeInsets.all(6),
                                   child: Image.asset(
                                     ImageConstant.fill_medium,
                                     color: ColorConstants.primaryColor,
@@ -356,7 +356,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
                   SizedBox(height: MySize.getHeight(15)),
                   Container(
                     decoration: BoxDecoration(
-                      color: Color(0xfffdcc00).withValues(alpha: 0.05),
+                      color: Color(0xfffdcc00).withValues(alpha: 0.06),
                       borderRadius: BorderRadius.circular(15),
                       border: Border.all(
                         color: Color(0xfffdcc00).withValues(alpha: 0.3),
@@ -374,7 +374,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
                               borderRadius: BorderRadius.circular(25),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(9),
+                              padding: const EdgeInsets.all(6),
                               child: Image.asset(
                                 ImageConstant.tip,
                                 fit: BoxFit.contain,

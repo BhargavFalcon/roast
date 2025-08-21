@@ -49,7 +49,7 @@ class PickYourPoisonView extends GetView<PickYourPoisonController> {
                     Text(
                       "Pick Your Poison",
                       style: TextStyle(
-                        fontSize: MySize.getHeight(14),
+                        fontSize: MySize.getHeight(15),
                         height: 1,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
@@ -59,7 +59,7 @@ class PickYourPoisonView extends GetView<PickYourPoisonController> {
                     Text(
                       "Pick your roast style to match your vibe.The \nmore unhinged, the better.",
                       style: TextStyle(
-                        fontSize: MySize.getHeight(11),
+                        fontSize: MySize.getHeight(12),
                         height: 1.2,
                         color: Colors.black54,
                       ),
@@ -79,13 +79,13 @@ class PickYourPoisonView extends GetView<PickYourPoisonController> {
                 child: Text(
                   " Mix and match styles for custom brutality ",
                   style: TextStyle(
-                    fontSize: MySize.getHeight(9),
+                    fontSize: MySize.getHeight(10),
                     color: ColorConstants.primaryColor,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: MySize.getHeight(30)),
+            SizedBox(height: MySize.getHeight(25)),
             ListView.separated(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
@@ -152,16 +152,16 @@ class PickYourPoisonView extends GetView<PickYourPoisonController> {
                               Text(
                                 controller.PickPoisonList[index].label ?? "",
                                 style: TextStyle(
-                                  fontSize: MySize.getHeight(12),
+                                  fontSize: MySize.getHeight(13),
                                   fontWeight: FontWeight.bold,
-                                  height: 1.2,
+                                  height: 1.3,
                                   color: Colors.black,
                                 ),
                               ),
                               Text(
                                 controller.PickPoisonList[index].subLabel ?? "",
                                 style: TextStyle(
-                                  fontSize: MySize.getHeight(9),
+                                  fontSize: MySize.getHeight(10),
                                   height: 1.2,
                                   color: Colors.black54,
                                 ),

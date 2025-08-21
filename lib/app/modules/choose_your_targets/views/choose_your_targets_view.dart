@@ -47,7 +47,7 @@ class ChooseYourTargetsView extends GetView<ChooseYourTargetsController> {
                     Text(
                       "Choose Your Targets",
                       style: TextStyle(
-                        fontSize: MySize.getHeight(14),
+                        fontSize: MySize.getHeight(15),
                         height: 1,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
@@ -57,7 +57,7 @@ class ChooseYourTargetsView extends GetView<ChooseYourTargetsController> {
                     Text(
                       "What should we roast? The more you pick, the \nmore brutal the result.",
                       style: TextStyle(
-                        fontSize: MySize.getHeight(11),
+                        fontSize: MySize.getHeight(12),
                         height: 1.2,
                         color: Colors.black54,
                       ),
@@ -77,7 +77,7 @@ class ChooseYourTargetsView extends GetView<ChooseYourTargetsController> {
                 child: Text(
                   "  Select everything that deserves to be flamed  ",
                   style: TextStyle(
-                    fontSize: MySize.getHeight(9),
+                    fontSize: MySize.getHeight(10),
                     color: ColorConstants.primaryColor,
                   ),
                 ),
@@ -150,9 +150,9 @@ class ChooseYourTargetsView extends GetView<ChooseYourTargetsController> {
                               Text(
                                 controller.ChooseTargetList[index].label ?? "",
                                 style: TextStyle(
-                                  fontSize: MySize.getHeight(12),
+                                  fontSize: MySize.getHeight(13),
                                   fontWeight: FontWeight.bold,
-                                  height: 1.2,
+                                  height: 1.3,
                                   color: Colors.black,
                                 ),
                               ),
@@ -160,7 +160,7 @@ class ChooseYourTargetsView extends GetView<ChooseYourTargetsController> {
                                 controller.ChooseTargetList[index].subLabel ??
                                     "",
                                 style: TextStyle(
-                                  fontSize: MySize.getHeight(9),
+                                  fontSize: MySize.getHeight(10),
                                   height: 1.2,
                                   color: Colors.black54,
                                 ),

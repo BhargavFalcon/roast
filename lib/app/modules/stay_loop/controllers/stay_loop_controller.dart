@@ -21,8 +21,8 @@ class StayLoopController extends GetxController {
         Selector(
           label: "Roast Reminders",
           subLabel:
-              "Never miss a chance to roast your friends with gentle reminders",
-          textIcon: ImageConstant.roast,
+              "Never miss a chance to roast your friends with gentle \nreminders",
+          textIcon: ImageConstant.fill_medium,
           color: 0xFFFF5C00,
         ),
       ].obs;

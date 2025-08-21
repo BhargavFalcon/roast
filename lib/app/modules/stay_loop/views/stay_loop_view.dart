@@ -47,7 +47,7 @@ class StayLoopView extends GetView<StayLoopController> {
                     Text(
                       "Stay in the Loop",
                       style: TextStyle(
-                        fontSize: MySize.getHeight(14),
+                        fontSize: MySize.getHeight(15),
                         height: 1,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
@@ -57,7 +57,7 @@ class StayLoopView extends GetView<StayLoopController> {
                     Text(
                       "Get notified about special offers and new \nfeatures. you can always change this later.",
                       style: TextStyle(
-                        fontSize: MySize.getHeight(11),
+                        fontSize: MySize.getHeight(12),
                         height: 1.2,
                         color: Colors.black54,
                       ),
@@ -119,16 +119,16 @@ class StayLoopView extends GetView<StayLoopController> {
                           Text(
                             controller.StayLoopList[index].label ?? "",
                             style: TextStyle(
-                              fontSize: MySize.getHeight(12),
+                              fontSize: MySize.getHeight(13),
                               fontWeight: FontWeight.bold,
-                              height: 1.2,
+                              height: 1.3,
                               color: Colors.black,
                             ),
                           ),
                           Text(
                             controller.StayLoopList[index].subLabel ?? "",
                             style: TextStyle(
-                              fontSize: MySize.getHeight(9),
+                              fontSize: MySize.getHeight(10),
                               height: 1.2,
                               color: Colors.black54,
                             ),
