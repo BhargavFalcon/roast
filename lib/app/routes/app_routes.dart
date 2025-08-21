@@ -10,6 +10,7 @@ abstract class Routes {
   static const ROAST_SCREEN = _Paths.ROAST_SCREEN;
   static const HISTORY_SCREEN = _Paths.HISTORY_SCREEN;
   static const SETTING_SCREEN = _Paths.SETTING_SCREEN;
+  static const ROAST_PREVIEW_SCREEN = _Paths.ROAST_PREVIEW_SCREEN;
 }
 
 abstract class _Paths {
@@ -21,4 +22,5 @@ abstract class _Paths {
   static const ROAST_SCREEN = '/roast-screen';
   static const HISTORY_SCREEN = '/history-screen';
   static const SETTING_SCREEN = '/setting-screen';
+  static const ROAST_PREVIEW_SCREEN = '/roast-preview-screen';
 }

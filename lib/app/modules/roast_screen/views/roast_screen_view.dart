@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:roast/app/constants/api_constants.dart';
 import 'package:roast/app/constants/color_constant.dart';
 import 'package:roast/app/constants/image_constants.dart';
 import 'package:roast/app/constants/sizeConstant.dart';
+import 'package:roast/app/routes/app_pages.dart';
 
 import '../controllers/roast_screen_controller.dart';
 
@@ -66,7 +68,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
                           children: [
                             Image.asset(
                               ImageConstant.medium,
-                              height: MySize.getHeight(25),
+                              height: MySize.getHeight(20),
                               color: Colors.white,
                             ),
                             const SizedBox(width: 5),
@@ -163,7 +165,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
                                       onTap: () async {
-                                        await _handleCameraSelection();
+                                        await _handleGallerySelection();
                                       },
                                       child: _photoOptionCard(
                                         context,
@@ -183,7 +185,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
                                       onTap: () async {
-                                        await _handleGallerySelection();
+                                        await _handleCameraSelection();
                                       },
                                       child: _photoOptionCard(
                                         context,
@@ -429,7 +431,15 @@ class RoastScreenView extends GetView<RoastScreenController> {
                   ),
                   SizedBox(height: MySize.getHeight(5)),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(
+                        Routes.ROAST_PREVIEW_SCREEN,
+                        arguments: {
+                          ArgumentConstant.imageFile:
+                              controller.imageFile.value,
+                        },
+                      );
+                    },
                     child: Container(
                       width: double.infinity,
                       height: MySize.getHeight(40),

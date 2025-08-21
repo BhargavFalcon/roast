@@ -18,4 +18,7 @@ class ImageConstant {
   static const fill_extreme = "${imagePath}fill_extreme.png";
   static const select = "${imagePath}select.png";
   static const tip = "${imagePath}tip.png";
+  static const delete = "${imagePath}delete.png";
+  static const share = "${imagePath}share.png";
+  static const copy = "${imagePath}copy.png";
 }

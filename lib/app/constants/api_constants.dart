@@ -1,3 +1,3 @@
 class ArgumentConstant {
-  static const onBoarding = "onBoarding";
+  static const imageFile = "imageFile";
 }

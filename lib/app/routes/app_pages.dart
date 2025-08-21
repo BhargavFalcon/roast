@@ -8,6 +8,8 @@ import '../modules/main_home/bindings/main_home_binding.dart';
 import '../modules/main_home/views/main_home_view.dart';
 import '../modules/pick_your_poison/bindings/pick_your_poison_binding.dart';
 import '../modules/pick_your_poison/views/pick_your_poison_view.dart';
+import '../modules/roast_preview_screen/bindings/roast_preview_screen_binding.dart';
+import '../modules/roast_preview_screen/views/roast_preview_screen_view.dart';
 import '../modules/roast_screen/bindings/roast_screen_binding.dart';
 import '../modules/roast_screen/views/roast_screen_view.dart';
 import '../modules/setting_screen/bindings/setting_screen_binding.dart';
@@ -20,7 +22,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.PICK_YOUR_POISON;
+  static const INITIAL = Routes.MAIN_HOME;
 
   static final routes = [
     GetPage(
@@ -63,6 +65,11 @@ class AppPages {
       name: _Paths.SETTING_SCREEN,
       page: () => const SettingScreenView(),
       binding: SettingScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.ROAST_PREVIEW_SCREEN,
+      page: () => const RoastPreviewScreenView(),
+      binding: RoastPreviewScreenBinding(),
     ),
   ];
 }
