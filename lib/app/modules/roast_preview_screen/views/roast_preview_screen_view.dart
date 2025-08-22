@@ -181,8 +181,7 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
   }
 
   Future shareRoast({required BuildContext context}) {
-    double posX = MediaQuery.of(context).size.width / 2 - 125;
-    double posY = MediaQuery.of(context).size.height - 300;
+    int currentIndex = 0;
 
     return showGeneralDialog(
       context: context,
@@ -199,63 +198,116 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                   Image.file(controller.imageFile.value!, fit: BoxFit.cover),
                   BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
-                    child: Container(
-                      color: Colors.black.withValues(alpha: 0.3),
-                    ),
+                    child: Container(color: Colors.black.withOpacity(0.3)),
                   ),
-                  InteractiveViewer(
-                    panEnabled: true,
-                    boundaryMargin: const EdgeInsets.all(400),
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(),
+
+                  Positioned.fill(
+                    child: ZoomableMovable(
                       child: Image.file(
                         controller.imageFile.value!,
                         fit: BoxFit.contain,
                       ),
                     ),
                   ),
-                  Positioned(
-                    left: posX,
-                    top: posY,
-                    child: GestureDetector(
-                      onPanUpdate: (details) {
-                        setState(() {
-                          posX += details.delta.dx;
-                          posY += details.delta.dy;
-                        });
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(16), // thoda andar space
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          mainAxisSize:
-                              MainAxisSize
-                                  .min, // content ke hisaab se size lega
-                          children: [
-                            Text(
-                              "Dynamic Content",
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.black,
+
+                  ZoomableMovable(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(maxWidth: 280),
+                          child: Container(
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: Colors.red.withOpacity(0.3),
+                                width: 1.2,
                               ),
                             ),
-                            SizedBox(height: 8),
-                            Row(
+                            child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.star, color: Colors.orange),
-                                SizedBox(width: 8),
-                                Text("Rating 4.5"),
+                                AnimatedSwitcher(
+                                  duration: const Duration(milliseconds: 300),
+                                  child: Text(
+                                    controller.roastList[currentIndex],
+                                    key: ValueKey(currentIndex),
+                                    style: const TextStyle(
+                                      fontSize: 13,
+                                      color: Colors.black,
+                                    ),
+                                    softWrap: true,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Divider(
+                                  color: Colors.red.withOpacity(0.3),
+                                  thickness: 1,
+                                  height: 10,
+                                ),
+                                const SizedBox(height: 4),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    GestureDetector(
+                                      onTap:
+                                          currentIndex > 0
+                                              ? () =>
+                                                  setState(() => currentIndex--)
+                                              : null,
+                                      child: Icon(
+                                        Icons.arrow_back_ios_new_rounded,
+                                        size: 14,
+                                        color:
+                                            currentIndex > 0
+                                                ? ColorConstants.primaryColor
+                                                : Colors.grey,
+                                      ),
+                                    ),
+                                    Text(
+                                      '🔥 Roast App ',
+                                      style: TextStyle(
+                                        color: ColorConstants.primaryColor,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap:
+                                          currentIndex <
+                                                  controller.roastList.length -
+                                                      1
+                                              ? () =>
+                                                  setState(() => currentIndex++)
+                                              : null,
+                                      child: Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        size: 14,
+                                        color:
+                                            currentIndex <
+                                                    controller
+                                                            .roastList
+                                                            .length -
+                                                        1
+                                                ? ColorConstants.primaryColor
+                                                : Colors.grey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
+
+                  // 🔹 Close Button
                   Positioned(
                     top: 50,
                     right: 20,
@@ -264,7 +316,7 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                       child: Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.1),
+                          color: Colors.white.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: const Icon(
@@ -281,6 +333,67 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
           },
         );
       },
+    );
+  }
+}
+
+class ZoomableMovable extends StatefulWidget {
+  final Widget child;
+  final bool enableGestures;
+
+  const ZoomableMovable({
+    super.key,
+    required this.child,
+    this.enableGestures = true,
+  });
+
+  @override
+  State<ZoomableMovable> createState() => _ZoomableMovableState();
+}
+
+class _ZoomableMovableState extends State<ZoomableMovable> {
+  double scale = 1.0;
+  double previousScale = 1.0;
+  Offset position = Offset.zero;
+  Offset previousPosition = Offset.zero;
+  bool isScaling = false;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!widget.enableGestures) {
+      return widget.child;
+    }
+
+    return GestureDetector(
+      behavior: HitTestBehavior.deferToChild,
+      onScaleStart: (details) {
+        previousScale = scale;
+        previousPosition = details.focalPoint - position;
+        isScaling = details.pointerCount > 1;
+      },
+      onScaleUpdate: (details) {
+        setState(() {
+          if (details.pointerCount > 1) {
+            // Multi-finger gesture - handle zoom and pan
+            scale = (previousScale * details.scale).clamp(0.5, 3.0);
+            position = details.focalPoint - previousPosition;
+          } else {
+            // Single finger - only pan
+            position = details.focalPoint - previousPosition;
+          }
+        });
+      },
+      onScaleEnd: (details) {
+        isScaling = false;
+      },
+      child: Transform(
+        transform:
+            Matrix4.identity()
+              ..translate(position.dx, position.dy)
+              ..scale(scale),
+        alignment: Alignment.center,
+        child: widget.child,
+      ),
     );
   }
 }
