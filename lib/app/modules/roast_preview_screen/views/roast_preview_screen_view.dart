@@ -198,7 +198,9 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                   Image.file(controller.imageFile.value!, fit: BoxFit.cover),
                   BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
-                    child: Container(color: Colors.black.withOpacity(0.3)),
+                    child: Container(
+                      color: Colors.black.withValues(alpha: 0.3),
+                    ),
                   ),
 
                   Positioned.fill(
@@ -225,7 +227,7 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                color: Colors.red.withOpacity(0.3),
+                                color: Colors.red.withValues(alpha: 0.3),
                                 width: 1.2,
                               ),
                             ),
@@ -246,7 +248,7 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                                 ),
                                 const SizedBox(height: 4),
                                 Divider(
-                                  color: Colors.red.withOpacity(0.3),
+                                  color: Colors.red.withValues(alpha: 0.3),
                                   thickness: 1,
                                   height: 10,
                                 ),
@@ -268,8 +270,8 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                                               currentIndex > 0
                                                   ? ColorConstants.primaryColor
                                                       .withValues(alpha: 0.3)
-                                                  : Colors.grey.withOpacity(
-                                                    0.3,
+                                                  : Colors.grey.withValues(
+                                                    alpha: 0.3,
                                                   ),
                                           border: Border.all(
                                             color:
@@ -277,8 +279,8 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                                                     ? ColorConstants
                                                         .primaryColor
                                                         .withValues(alpha: 0.3)
-                                                    : Colors.grey.withOpacity(
-                                                      0.3,
+                                                    : Colors.grey.withValues(
+                                                      alpha: 0.3,
                                                     ),
                                           ),
                                           borderRadius: BorderRadius.circular(
@@ -322,8 +324,8 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                                                           1
                                                   ? ColorConstants.primaryColor
                                                       .withValues(alpha: 0.3)
-                                                  : Colors.grey.withOpacity(
-                                                    0.3,
+                                                  : Colors.grey.withValues(
+                                                    alpha: 0.3,
                                                   ),
                                           border: Border.all(
                                             color:
@@ -335,8 +337,8 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                                                     ? ColorConstants
                                                         .primaryColor
                                                         .withValues(alpha: 0.3)
-                                                    : Colors.grey.withOpacity(
-                                                      0.3,
+                                                    : Colors.grey.withValues(
+                                                      alpha: 0.3,
                                                     ),
                                           ),
                                           borderRadius: BorderRadius.circular(
@@ -376,7 +378,7 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                       child: Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.1),
+                          color: Colors.white.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: const Icon(
