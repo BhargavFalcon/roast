@@ -368,8 +368,6 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                       ],
                     ),
                   ),
-
-                  // 🔹 Close Button
                   Positioned(
                     top: 50,
                     right: 20,
@@ -385,6 +383,34 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                           Icons.close,
                           color: Colors.white,
                           size: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: 50,
+                    child: InkWell(
+                      onTap: () => Get.back(),
+                      child: Center(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width - 20,
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: ColorConstants.primaryColor,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Share Roast",
+                              style: TextStyle(
+                                fontSize: MySize.getHeight(13),
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
