@@ -40,6 +40,7 @@ dependencies:
   permission_handler: ^12.0.1
   auto_size_text: ^3.0.0
   share_plus: ^11.1.0
+  flutter_native_splash: ^2.4.6
   get: ^4.7.2
 
 dev_dependencies:
@@ -96,3 +97,11 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/Image/appicon.png
+  android_gravity: center
+  ios_content_mode: center
+  fullscreen: false
+  android: true
+  ios: true

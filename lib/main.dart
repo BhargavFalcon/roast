@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'app/routes/app_pages.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -14,6 +14,10 @@ void main() {
       statusBarBrightness: Brightness.light,
     ),
   );
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(
     GetMaterialApp(
       title: "Application",
