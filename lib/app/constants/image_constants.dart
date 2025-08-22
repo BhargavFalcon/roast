@@ -21,4 +21,5 @@ class ImageConstant {
   static const delete = "${imagePath}delete.png";
   static const share = "${imagePath}share.png";
   static const copy = "${imagePath}copy.png";
+  static const appicon = "${imagePath}appicon.png";
 }

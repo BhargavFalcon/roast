@@ -282,24 +282,64 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                                                       () => currentIndex--,
                                                     )
                                                     : null,
-                                            child: Icon(
-                                              Icons.arrow_back_ios_new_rounded,
-                                              size: 14,
-                                              color:
-                                                  currentIndex > 0
-                                                      ? ColorConstants
-                                                          .primaryColor
-                                                      : Colors.grey,
+                                            child: Container(
+                                              padding: const EdgeInsets.all(6),
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    currentIndex > 0
+                                                        ? ColorConstants
+                                                            .primaryColor
+                                                            .withValues(
+                                                              alpha: 0.3,
+                                                            )
+                                                        : Colors.grey
+                                                            .withValues(
+                                                              alpha: 0.3,
+                                                            ),
+                                                border: Border.all(
+                                                  color:
+                                                      currentIndex > 0
+                                                          ? ColorConstants
+                                                              .primaryColor
+                                                          : Colors.grey,
+                                                  width: 1.2,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
+                                              ),
+                                              child: Icon(
+                                                Icons
+                                                    .arrow_back_ios_new_rounded,
+                                                size: 14,
+                                                color:
+                                                    currentIndex > 0
+                                                        ? ColorConstants
+                                                            .primaryColor
+                                                        : Colors.grey,
+                                              ),
                                             ),
                                           ),
-                                          Text(
-                                            '🔥 Roast Me ',
-                                            style: TextStyle(
-                                              color:
-                                                  ColorConstants.primaryColor,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600,
-                                            ),
+                                          Row(
+                                            children: [
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
+                                                child: Image.asset(
+                                                  ImageConstant.appicon,
+                                                  height: MySize.getHeight(25),
+                                                ),
+                                              ),
+                                              Text(
+                                                ' Roast Me ',
+                                                style: TextStyle(
+                                                  color:
+                                                      ColorConstants
+                                                          .primaryColor,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                           GestureDetector(
                                             onTap:
@@ -312,18 +352,52 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                                                       () => currentIndex++,
                                                     )
                                                     : null,
-                                            child: Icon(
-                                              Icons.arrow_forward_ios_rounded,
-                                              size: 14,
-                                              color:
-                                                  currentIndex <
-                                                          controller
-                                                                  .roastList
-                                                                  .length -
-                                                              1
-                                                      ? ColorConstants
-                                                          .primaryColor
-                                                      : Colors.grey,
+                                            child: Container(
+                                              padding: const EdgeInsets.all(6),
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    currentIndex <
+                                                            controller
+                                                                    .roastList
+                                                                    .length -
+                                                                1
+                                                        ? ColorConstants
+                                                            .primaryColor
+                                                            .withValues(
+                                                              alpha: 0.3,
+                                                            )
+                                                        : Colors.grey
+                                                            .withValues(
+                                                              alpha: 0.3,
+                                                            ),
+                                                border: Border.all(
+                                                  color:
+                                                      currentIndex <
+                                                              controller
+                                                                      .roastList
+                                                                      .length -
+                                                                  1
+                                                          ? ColorConstants
+                                                              .primaryColor
+                                                          : Colors.grey,
+                                                  width: 1.2,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
+                                              ),
+                                              child: Icon(
+                                                Icons.arrow_forward_ios_rounded,
+                                                size: 14,
+                                                color:
+                                                    currentIndex <
+                                                            controller
+                                                                    .roastList
+                                                                    .length -
+                                                                1
+                                                        ? ColorConstants
+                                                            .primaryColor
+                                                        : Colors.grey,
+                                              ),
                                             ),
                                           ),
                                         ],
