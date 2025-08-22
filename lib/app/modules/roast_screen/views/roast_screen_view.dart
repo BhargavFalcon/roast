@@ -433,13 +433,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
                   InkWell(
                     onTap: () {
                       if (controller.imageFile.value == null) {
-                        Get.snackbar(
-                          "Error",
-                          "Please select an image to roast.",
-                          snackPosition: SnackPosition.TOP,
-                          backgroundColor: Colors.black.withValues(alpha: 0.1),
-                          colorText: Colors.black,
-                        );
+                        _showNoImageSelect();
                         return;
                       }
                       Get.toNamed(
@@ -515,38 +509,76 @@ class RoastScreenView extends GetView<RoastScreenController> {
       showCupertinoDialog(
         context: Get.context!,
         builder:
-            (BuildContext dialogContext) => CupertinoTheme(
-              data: const CupertinoThemeData(
-                brightness: Brightness.dark,
-                primaryColor: CupertinoColors.white,
-                textTheme: CupertinoTextThemeData(
-                  textStyle: TextStyle(color: CupertinoColors.white),
-                  actionTextStyle: TextStyle(color: CupertinoColors.white),
+            (BuildContext dialogContext) => CupertinoAlertDialog(
+              title: const Text(
+                'Camera Access Needed',
+                style: TextStyle(
+                  color: CupertinoColors.black,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              child: CupertinoAlertDialog(
-                title: const Text(
-                  'Camera Permission required',
-                  style: TextStyle(color: CupertinoColors.white),
-                ),
-                content: const Text(
-                  'Please enable camera access in Settings.',
-                  style: TextStyle(color: Colors.white70),
-                ),
-                actions: [
-                  CupertinoDialogAction(
-                    onPressed: () => Navigator.of(dialogContext).pop(),
-                    child: const Text('Cancel'),
-                  ),
-                  CupertinoDialogAction(
-                    onPressed: () {
-                      Navigator.of(dialogContext).pop();
-                      openAppSettings();
-                    },
-                    child: const Text('Open Settings'),
-                  ),
-                ],
+              content: Text(
+                "To roast photos using your device's camera, we need access to the camera. Please grant camera access in Settings",
+                style: TextStyle(color: Colors.black),
               ),
+              actions: [
+                CupertinoDialogAction(
+                  onPressed: () => Navigator.of(dialogContext).pop(),
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(
+                      color: CupertinoColors.destructiveRed,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                CupertinoDialogAction(
+                  onPressed: () {
+                    Navigator.of(dialogContext).pop();
+                    openAppSettings();
+                  },
+                  child: Text(
+                    'Open Settings',
+                    style: TextStyle(color: ColorConstants.primaryColor),
+                  ),
+                ),
+              ],
+            ),
+      );
+    });
+  }
+
+  void _showNoImageSelect() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showCupertinoDialog(
+        context: Get.context!,
+        builder:
+            (BuildContext dialogContext) => CupertinoAlertDialog(
+              title: const Text(
+                'Oops!',
+                style: TextStyle(
+                  color: CupertinoColors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              content: Text(
+                "Please select an image to roast. You can choose from the gallery or take a new photo.",
+                style: TextStyle(color: Colors.black),
+              ),
+              actions: [
+                CupertinoDialogAction(
+                  onPressed: () {
+                    Navigator.of(dialogContext).pop();
+                  },
+                  child: Text(
+                    'OK',
+                    style: TextStyle(
+                      color: ColorConstants.primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
             ),
       );
     });
