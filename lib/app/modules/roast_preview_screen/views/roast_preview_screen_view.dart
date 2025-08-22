@@ -107,7 +107,7 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                               controller.roastList[index],
                               style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 16,
+                                fontSize: MySize.getHeight(13),
                               ),
                             ),
                           ),
@@ -213,6 +213,8 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                   ZoomableMovable(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         ConstrainedBox(
                           constraints: const BoxConstraints(maxWidth: 280),
@@ -259,17 +261,42 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                                               ? () =>
                                                   setState(() => currentIndex--)
                                               : null,
-                                      child: Icon(
-                                        Icons.arrow_back_ios_new_rounded,
-                                        size: 14,
-                                        color:
-                                            currentIndex > 0
-                                                ? ColorConstants.primaryColor
-                                                : Colors.grey,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(6),
+                                        decoration: BoxDecoration(
+                                          color:
+                                              currentIndex > 0
+                                                  ? ColorConstants.primaryColor
+                                                      .withValues(alpha: 0.3)
+                                                  : Colors.grey.withOpacity(
+                                                    0.3,
+                                                  ),
+                                          border: Border.all(
+                                            color:
+                                                currentIndex > 0
+                                                    ? ColorConstants
+                                                        .primaryColor
+                                                        .withValues(alpha: 0.3)
+                                                    : Colors.grey.withOpacity(
+                                                      0.3,
+                                                    ),
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                            30,
+                                          ),
+                                        ),
+                                        child: Icon(
+                                          Icons.arrow_back_ios_new_rounded,
+                                          size: 14,
+                                          color:
+                                              currentIndex > 0
+                                                  ? ColorConstants.primaryColor
+                                                  : Colors.grey,
+                                        ),
                                       ),
                                     ),
                                     Text(
-                                      '🔥 Roast App ',
+                                      '🔥 Roast Me ',
                                       style: TextStyle(
                                         color: ColorConstants.primaryColor,
                                         fontSize: 14,
@@ -284,17 +311,50 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                                               ? () =>
                                                   setState(() => currentIndex++)
                                               : null,
-                                      child: Icon(
-                                        Icons.arrow_forward_ios_rounded,
-                                        size: 14,
-                                        color:
-                                            currentIndex <
-                                                    controller
-                                                            .roastList
-                                                            .length -
-                                                        1
-                                                ? ColorConstants.primaryColor
-                                                : Colors.grey,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(6),
+                                        decoration: BoxDecoration(
+                                          color:
+                                              currentIndex <
+                                                      controller
+                                                              .roastList
+                                                              .length -
+                                                          1
+                                                  ? ColorConstants.primaryColor
+                                                      .withValues(alpha: 0.3)
+                                                  : Colors.grey.withOpacity(
+                                                    0.3,
+                                                  ),
+                                          border: Border.all(
+                                            color:
+                                                currentIndex <
+                                                        controller
+                                                                .roastList
+                                                                .length -
+                                                            1
+                                                    ? ColorConstants
+                                                        .primaryColor
+                                                        .withValues(alpha: 0.3)
+                                                    : Colors.grey.withOpacity(
+                                                      0.3,
+                                                    ),
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                            30,
+                                          ),
+                                        ),
+                                        child: Icon(
+                                          Icons.arrow_forward_ios_rounded,
+                                          size: 14,
+                                          color:
+                                              currentIndex <
+                                                      controller
+                                                              .roastList
+                                                              .length -
+                                                          1
+                                                  ? ColorConstants.primaryColor
+                                                  : Colors.grey,
+                                        ),
                                       ),
                                     ),
                                   ],
