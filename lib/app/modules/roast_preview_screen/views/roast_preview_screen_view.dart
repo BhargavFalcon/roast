@@ -1,11 +1,16 @@
+import 'dart:io';
+import 'dart:ui' as ui;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:roast/app/constants/color_constant.dart';
 import 'package:roast/app/constants/image_constants.dart';
 import 'package:roast/app/constants/sizeConstant.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../controllers/roast_preview_screen_controller.dart';
 
@@ -182,6 +187,7 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
 
   Future shareRoast({required BuildContext context}) {
     int currentIndex = 0;
+    GlobalKey previewContainerKey = GlobalKey();
 
     return showGeneralDialog(
       context: context,
@@ -195,173 +201,138 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
               body: Stack(
                 fit: StackFit.expand,
                 children: [
-                  Image.file(controller.imageFile.value!, fit: BoxFit.cover),
-                  BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
-                    child: Container(
-                      color: Colors.black.withValues(alpha: 0.3),
-                    ),
-                  ),
-                  Positioned.fill(
-                    child: ZoomableMovable(
-                      child: Image.file(
-                        controller.imageFile.value!,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-
-                  ZoomableMovable(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                  RepaintBoundary(
+                    key: previewContainerKey,
+                    child: Stack(
+                      fit: StackFit.expand,
                       children: [
-                        ConstrainedBox(
-                          constraints: const BoxConstraints(maxWidth: 280),
+                        Image.file(
+                          controller.imageFile.value!,
+                          fit: BoxFit.cover,
+                        ),
+                        BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
                           child: Container(
-                            alignment: Alignment.center,
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: Colors.red.withValues(alpha: 0.3),
-                                width: 1.2,
-                              ),
+                            color: Colors.black.withValues(alpha: 0.3),
+                          ),
+                        ),
+                        Positioned.fill(
+                          child: ZoomableMovable(
+                            child: Image.file(
+                              controller.imageFile.value!,
+                              fit: BoxFit.contain,
                             ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                AnimatedSwitcher(
-                                  duration: const Duration(milliseconds: 300),
-                                  child: Text(
-                                    controller.roastList[currentIndex],
-                                    key: ValueKey(currentIndex),
-                                    style: const TextStyle(
-                                      fontSize: 13,
-                                      color: Colors.black,
+                          ),
+                        ),
+                        ZoomableMovable(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                  maxWidth: 280,
+                                ),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      color: Colors.red.withValues(alpha: 0.3),
+                                      width: 1.2,
                                     ),
-                                    softWrap: true,
                                   ),
-                                ),
-                                const SizedBox(height: 4),
-                                Divider(
-                                  color: Colors.red.withValues(alpha: 0.3),
-                                  thickness: 1,
-                                  height: 10,
-                                ),
-                                const SizedBox(height: 4),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    GestureDetector(
-                                      onTap:
-                                          currentIndex > 0
-                                              ? () =>
-                                                  setState(() => currentIndex--)
-                                              : null,
-                                      child: Container(
-                                        padding: const EdgeInsets.all(6),
-                                        decoration: BoxDecoration(
-                                          color:
-                                              currentIndex > 0
-                                                  ? ColorConstants.primaryColor
-                                                      .withValues(alpha: 0.3)
-                                                  : Colors.grey.withValues(
-                                                    alpha: 0.3,
-                                                  ),
-                                          border: Border.all(
-                                            color:
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      AnimatedSwitcher(
+                                        duration: const Duration(
+                                          milliseconds: 300,
+                                        ),
+                                        child: Text(
+                                          controller.roastList[currentIndex],
+                                          key: ValueKey(currentIndex),
+                                          style: const TextStyle(
+                                            fontSize: 13,
+                                            color: Colors.black,
+                                          ),
+                                          softWrap: true,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Divider(
+                                        color: Colors.red.withValues(
+                                          alpha: 0.3,
+                                        ),
+                                        thickness: 1,
+                                        height: 10,
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          GestureDetector(
+                                            onTap:
                                                 currentIndex > 0
-                                                    ? ColorConstants
-                                                        .primaryColor
-                                                        .withValues(alpha: 0.3)
-                                                    : Colors.grey.withValues(
-                                                      alpha: 0.3,
-                                                    ),
+                                                    ? () => setState(
+                                                      () => currentIndex--,
+                                                    )
+                                                    : null,
+                                            child: Icon(
+                                              Icons.arrow_back_ios_new_rounded,
+                                              size: 14,
+                                              color:
+                                                  currentIndex > 0
+                                                      ? ColorConstants
+                                                          .primaryColor
+                                                      : Colors.grey,
+                                            ),
                                           ),
-                                          borderRadius: BorderRadius.circular(
-                                            30,
+                                          Text(
+                                            '🔥 Roast Me ',
+                                            style: TextStyle(
+                                              color:
+                                                  ColorConstants.primaryColor,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                            ),
                                           ),
-                                        ),
-                                        child: Icon(
-                                          Icons.arrow_back_ios_new_rounded,
-                                          size: 14,
-                                          color:
-                                              currentIndex > 0
-                                                  ? ColorConstants.primaryColor
-                                                  : Colors.grey,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      '🔥 Roast Me ',
-                                      style: TextStyle(
-                                        color: ColorConstants.primaryColor,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap:
-                                          currentIndex <
-                                                  controller.roastList.length -
-                                                      1
-                                              ? () =>
-                                                  setState(() => currentIndex++)
-                                              : null,
-                                      child: Container(
-                                        padding: const EdgeInsets.all(6),
-                                        decoration: BoxDecoration(
-                                          color:
-                                              currentIndex <
-                                                      controller
-                                                              .roastList
-                                                              .length -
-                                                          1
-                                                  ? ColorConstants.primaryColor
-                                                      .withValues(alpha: 0.3)
-                                                  : Colors.grey.withValues(
-                                                    alpha: 0.3,
-                                                  ),
-                                          border: Border.all(
-                                            color:
+                                          GestureDetector(
+                                            onTap:
                                                 currentIndex <
                                                         controller
                                                                 .roastList
                                                                 .length -
                                                             1
-                                                    ? ColorConstants
-                                                        .primaryColor
-                                                        .withValues(alpha: 0.3)
-                                                    : Colors.grey.withValues(
-                                                      alpha: 0.3,
-                                                    ),
+                                                    ? () => setState(
+                                                      () => currentIndex++,
+                                                    )
+                                                    : null,
+                                            child: Icon(
+                                              Icons.arrow_forward_ios_rounded,
+                                              size: 14,
+                                              color:
+                                                  currentIndex <
+                                                          controller
+                                                                  .roastList
+                                                                  .length -
+                                                              1
+                                                      ? ColorConstants
+                                                          .primaryColor
+                                                      : Colors.grey,
+                                            ),
                                           ),
-                                          borderRadius: BorderRadius.circular(
-                                            30,
-                                          ),
-                                        ),
-                                        child: Icon(
-                                          Icons.arrow_forward_ios_rounded,
-                                          size: 14,
-                                          color:
-                                              currentIndex <
-                                                      controller
-                                                              .roastList
-                                                              .length -
-                                                          1
-                                                  ? ColorConstants.primaryColor
-                                                  : Colors.grey,
-                                        ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -391,7 +362,31 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                     right: 0,
                     bottom: 50,
                     child: InkWell(
-                      onTap: () => Get.back(),
+                      onTap: () async {
+                        RenderRepaintBoundary boundary =
+                            previewContainerKey.currentContext!
+                                    .findRenderObject()
+                                as RenderRepaintBoundary;
+                        double dpr = MediaQuery.of(context).devicePixelRatio;
+                        ui.Image image = await boundary.toImage(
+                          pixelRatio: dpr,
+                        );
+                        ByteData? byteData = await image.toByteData(
+                          format: ui.ImageByteFormat.png,
+                        );
+                        Uint8List pngBytes = byteData!.buffer.asUint8List();
+                        final tempDir = await getTemporaryDirectory();
+                        final file =
+                            await File('${tempDir.path}/roast.png').create();
+                        await file.writeAsBytes(pngBytes);
+                        await SharePlus.instance.share(
+                          ShareParams(
+                            text: controller.roastList[currentIndex],
+                            files: [XFile(file.path)],
+                            subject: 'Roast Me',
+                          ),
+                        );
+                      },
                       child: Center(
                         child: Container(
                           width: MediaQuery.of(context).size.width - 20,
