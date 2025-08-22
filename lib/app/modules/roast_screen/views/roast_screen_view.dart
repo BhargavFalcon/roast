@@ -488,7 +488,12 @@ class RoastScreenView extends GetView<RoastScreenController> {
     final status = await Permission.camera.request();
 
     if (status.isGranted) {
-      final file = await ImagePicker().pickImage(source: ImageSource.camera);
+      final file = await ImagePicker().pickImage(
+        source: ImageSource.camera,
+        maxWidth: 800,
+        maxHeight: 800,
+        imageQuality: 80,
+      );
       if (file != null) {
         controller.imageFile.value = File(file.path);
       }
@@ -498,7 +503,12 @@ class RoastScreenView extends GetView<RoastScreenController> {
   }
 
   Future<void> _handleGallerySelection() async {
-    final file = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final file = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 800,
+      maxHeight: 800,
+      imageQuality: 80,
+    );
     if (file != null) {
       controller.imageFile.value = File(file.path);
     }
@@ -604,6 +614,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
               controller.imageFile.value!,
               height: MySize.getHeight(150),
               fit: BoxFit.cover,
+              cacheWidth: 600,
             ),
           ),
           Positioned(
