@@ -202,7 +202,6 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                       color: Colors.black.withValues(alpha: 0.3),
                     ),
                   ),
-
                   Positioned.fill(
                     child: ZoomableMovable(
                       child: Image.file(
