@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:roast/app/constants/api_constants.dart';
 import 'package:roast/app/constants/color_constant.dart';
 import 'package:roast/app/constants/image_constants.dart';
 import 'package:roast/app/constants/sizeConstant.dart';
-import 'package:roast/app/routes/app_pages.dart';
 
 import '../controllers/roast_screen_controller.dart';
 
@@ -431,18 +429,30 @@ class RoastScreenView extends GetView<RoastScreenController> {
                   ),
                   SizedBox(height: MySize.getHeight(5)),
                   InkWell(
-                    onTap: () {
+                    onTap: () async {
                       if (controller.imageFile.value == null) {
                         _showNoImageSelect();
                         return;
                       }
-                      Get.toNamed(
-                        Routes.ROAST_PREVIEW_SCREEN,
-                        arguments: {
-                          ArgumentConstant.imageFile:
-                              controller.imageFile.value,
-                        },
-                      );
+                      await controller
+                          .resizeImage(controller.imageFile.value!)
+                          .then((value) {
+                            if (!isNullEmptyOrFalse(value)) {
+                              String selectedBurn =
+                                  controller.burnLevelList
+                                      .firstWhere(
+                                        (burn) => burn.isSelected.value,
+                                      )
+                                      .label;
+                              controller.roastImageApi(
+                                context: context,
+                                style: ["dark", "fun"],
+                                target: ["looks & fashion"],
+                                intensity: selectedBurn,
+                                imageBytes: value,
+                              );
+                            }
+                          });
                     },
                     child: Container(
                       width: double.infinity,
