@@ -24,8 +24,8 @@ class HistoryScreenView extends GetView<HistoryScreenController> {
           return Padding(
             padding: EdgeInsets.only(
               top: MediaQuery.of(context).padding.top + 15,
-              left: 15,
-              right: 15,
+              left: 10,
+              right: 10,
             ),
             child: Column(
               children: [
@@ -180,11 +180,29 @@ class HistoryScreenView extends GetView<HistoryScreenController> {
                                         },
                                       );
                                     },
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(12),
-                                      child: Image.memory(
-                                        historyModel.imageBytes,
-                                        fit: BoxFit.cover,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        border: Border.all(
+                                          color: ColorConstants.primaryColor
+                                              .withValues(alpha: 0.2),
+                                          width: 1,
+                                        ),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: ColorConstants.primaryColor
+                                                .withValues(alpha: 0.2),
+                                            blurRadius: 6,
+                                            spreadRadius: 3,
+                                          ),
+                                        ],
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: Image.memory(
+                                          historyModel.imageBytes,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     ),
                                   ),
