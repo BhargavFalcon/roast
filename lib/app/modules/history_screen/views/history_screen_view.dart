@@ -67,14 +67,12 @@ class HistoryScreenView extends GetView<HistoryScreenController> {
                             color: Colors.white,
                           ),
                           const SizedBox(width: 5),
-                          Obx(
-                            () => Text(
-                              "0",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: MySize.getHeight(13),
-                              ),
+                          Text(
+                            "0",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: MySize.getHeight(13),
                             ),
                           ),
                         ],
