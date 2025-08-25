@@ -24,6 +24,10 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: InkWell(
+          hoverColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          focusColor: Colors.transparent,
           onTap: () {
             Get.back();
           },
@@ -53,6 +57,10 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
         ),
         actions: [
           InkWell(
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            focusColor: Colors.transparent,
             onTap: () {
               shareRoast(context: context);
             },
@@ -176,8 +184,8 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),
-        child: Image.file(
-          controller.imageFile.value!,
+        child: Image.memory(
+          controller.uint8list.value,
           fit: BoxFit.cover,
           height: MySize.getHeight(200),
         ),
@@ -206,8 +214,8 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
-                        Image.file(
-                          controller.imageFile.value!,
+                        Image.memory(
+                          controller.uint8list.value,
                           fit: BoxFit.cover,
                         ),
                         BackdropFilter(
@@ -218,8 +226,8 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                         ),
                         Positioned.fill(
                           child: ZoomableMovable(
-                            child: Image.file(
-                              controller.imageFile.value!,
+                            child: Image.memory(
+                              controller.uint8list.value,
                               fit: BoxFit.contain,
                             ),
                           ),

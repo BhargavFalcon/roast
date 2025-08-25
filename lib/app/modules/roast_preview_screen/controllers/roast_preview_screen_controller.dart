@@ -1,10 +1,9 @@
-import 'dart:io';
-
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:roast/app/constants/api_constants.dart';
 
 class RoastPreviewScreenController extends GetxController {
-  final Rx<File?> imageFile = Rx<File?>(null);
+  Rx<Uint8List> uint8list = Uint8List(0).obs;
 
   RxList<String> roastList = <String>[].obs;
 
@@ -14,7 +13,7 @@ class RoastPreviewScreenController extends GetxController {
   void onInit() {
     if (Get.arguments != null &&
         Get.arguments.containsKey(ArgumentConstant.imageFile)) {
-      imageFile.value = Get.arguments[ArgumentConstant.imageFile];
+      uint8list.value = Get.arguments[ArgumentConstant.imageFile];
       roastList.value = Get.arguments[ArgumentConstant.roastList] ?? [];
     }
     super.onInit();

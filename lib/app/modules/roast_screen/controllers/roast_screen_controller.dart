@@ -8,7 +8,11 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:roast/app/constants/api_constants.dart';
 import 'package:roast/app/constants/image_constants.dart';
+import 'package:roast/app/constants/sizeConstant.dart';
+import 'package:roast/app/model/historyModel.dart';
 import 'package:roast/app/routes/app_pages.dart';
+
+import '../../../../main.dart';
 
 class RoastScreenController extends GetxController {
   final Rx<File?> imageFile = Rx<File?>(null);
@@ -39,23 +43,31 @@ class RoastScreenController extends GetxController {
   }
 
   Future<Uint8List> resizeImage(File imageFile) async {
-    Uint8List? compressed;
-    List<int> qualitySteps = [80, 60, 40, 30, 20, 15, 10];
+    final decodedImage = await decodeImageFromList(
+      await imageFile.readAsBytes(),
+    );
+    int origWidth = decodedImage.width;
+    int origHeight = decodedImage.height;
 
-    for (int q in qualitySteps) {
-      compressed = await FlutterImageCompress.compressWithFile(
-        imageFile.absolute.path,
-        minWidth: 384,
-        minHeight: 384,
-        quality: q,
-        format: CompressFormat.jpeg,
-      );
+    const int targetSize = 384;
+    double aspectRatio = origWidth / origHeight;
+    int newWidth, newHeight;
 
-      if (compressed != null && compressed.lengthInBytes / 1024 < 80) {
-        break;
-      }
+    if (origWidth >= origHeight) {
+      newWidth = targetSize;
+      newHeight = (targetSize / aspectRatio).round();
+    } else {
+      newHeight = targetSize;
+      newWidth = (targetSize * aspectRatio).round();
     }
 
+    final compressed = await FlutterImageCompress.compressWithFile(
+      imageFile.absolute.path,
+      minWidth: newWidth,
+      minHeight: newHeight,
+      quality: 40,
+      format: CompressFormat.jpeg,
+    );
     return compressed ?? await imageFile.readAsBytes();
   }
 
@@ -70,7 +82,7 @@ class RoastScreenController extends GetxController {
 
     final headers = {
       "Content-Type": "application/json",
-      "Authorization": "Bearer ${ArgumentConstant.ApiToken}",
+      "Authorization": "Bearer ",
     };
 
     String? base64Img;
@@ -107,7 +119,7 @@ class RoastScreenController extends GetxController {
 
     http
         .post(url, headers: headers, body: jsonEncode(body))
-        .then((response) {
+        .then((response) async {
           if (response.statusCode == 200) {
             final data = jsonDecode(response.body);
             String content = data["choices"][0]["message"]["content"];
@@ -120,10 +132,31 @@ class RoastScreenController extends GetxController {
                           line.replaceFirst(RegExp(r'^\d+\.\s*'), '').trim(),
                     )
                     .toList();
+            Uint8List uint8list = await fileToUint8List(imageFile.value!);
+            RxList<HistoryModel> historyList = <HistoryModel>[].obs;
+            final rawList = box.read(ArgumentConstant.historyList);
+            if (!isNullEmptyOrFalse(rawList)) {
+              historyList.value =
+                  List<HistoryModel>.from(
+                    rawList.map((item) => HistoryModel.fromJson(item)),
+                  ).toList();
+            } else {
+              historyList.value = [];
+            }
+            HistoryModel historyModel = HistoryModel(
+              imageBytes: uint8list,
+              roastList: roastList,
+              dateTime: DateTime.now(),
+            );
+            historyList.add(historyModel);
+            box.write(
+              ArgumentConstant.historyList,
+              historyList.map((item) => item.toJson()).toList(),
+            );
             Get.toNamed(
               Routes.ROAST_PREVIEW_SCREEN,
               arguments: {
-                ArgumentConstant.imageFile: imageFile.value,
+                ArgumentConstant.imageFile: uint8list,
                 ArgumentConstant.roastList: roastList,
               },
             );
@@ -134,6 +167,11 @@ class RoastScreenController extends GetxController {
         .catchError((e) {
           print("⚠️ Exception: $e");
         });
+  }
+
+  Future<Uint8List> fileToUint8List(File imageFile) async {
+    Uint8List bytes = await imageFile.readAsBytes();
+    return bytes;
   }
 
   @override
