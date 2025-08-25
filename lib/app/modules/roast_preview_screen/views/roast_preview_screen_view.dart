@@ -70,12 +70,6 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
               color: ColorConstants.primaryColor,
             ),
           ),
-          const SizedBox(width: 30),
-          Image.asset(
-            ImageConstant.delete,
-            height: 24,
-            color: ColorConstants.primaryColor,
-          ),
           const SizedBox(width: 20),
         ],
       ),

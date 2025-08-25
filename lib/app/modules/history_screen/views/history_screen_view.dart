@@ -118,11 +118,13 @@ class HistoryScreenView extends GetView<HistoryScreenController> {
                                   },
                                 );
                               },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
-                                child: Image.memory(
-                                  controller.historyList[index].imageBytes!,
-                                  fit: BoxFit.cover,
+                              child: Container(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: Image.memory(
+                                    controller.historyList[index].imageBytes!,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
