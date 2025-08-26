@@ -351,22 +351,29 @@ class RoastScreenView extends GetView<RoastScreenController> {
     double? fontSize,
   }) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       padding: EdgeInsets.symmetric(
         vertical: 6,
         horizontal: label.length > 10 ? 10 : 12,
       ),
       decoration: BoxDecoration(
-        color:
-            isSelected
-                ? ColorConstants.primaryColor.withValues(alpha: 0.1)
-                : Colors.white,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
+        boxShadow:
+            isSelected
+                ? [
+                  BoxShadow(
+                    color: ColorConstants.primaryColor.withValues(alpha: 0.2),
+                    blurRadius: 4,
+                    spreadRadius: 3,
+                  ),
+                ]
+                : [],
         border: Border.all(
           color:
               isSelected
                   ? ColorConstants.primaryColor
-                  : ColorConstants.primaryColor.withValues(alpha: 0.5),
+                  : ColorConstants.primaryColor.withValues(alpha: 0.2),
           width: 1,
         ),
       ),
