@@ -29,9 +29,15 @@ class HistoryScreenController extends GetxController {
     Map<String, List<HistoryModel>> grouped = {};
     for (var history in historyList) {
       String dateKey = DateFormat('yyyy-MM-dd').format(history.dateTime);
-      if (!grouped.containsKey(dateKey)) grouped[dateKey] = [];
+      grouped.putIfAbsent(dateKey, () => []);
       grouped[dateKey]!.add(history);
     }
-    groupedHistory.value = grouped;
+    grouped.forEach((key, value) {
+      value.sort((a, b) => b.dateTime.compareTo(a.dateTime));
+    });
+    final sortedKeys =
+        grouped.keys.toList()
+          ..sort((a, b) => DateTime.parse(b).compareTo(DateTime.parse(a)));
+    groupedHistory.value = {for (var key in sortedKeys) key: grouped[key]!};
   }
 }
