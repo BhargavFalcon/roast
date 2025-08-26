@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -17,7 +18,7 @@ import '../../../../main.dart';
 
 class RoastScreenController extends GetxController {
   final Rx<File?> imageFile = Rx<File?>(null);
-
+  final apiKey = dotenv.env['OPENAI_KEY'];
   final RxList<BurnModel> burnLevelList =
       <BurnModel>[
         BurnModel(
@@ -159,7 +160,10 @@ class RoastScreenController extends GetxController {
   }
 
   Map<String, String> _buildHeaders() {
-    return {"Content-Type": "application/json", "Authorization": "Bearer"};
+    return {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $apiKey",
+    };
   }
 
   Map<String, dynamic> _buildRequestBody(
