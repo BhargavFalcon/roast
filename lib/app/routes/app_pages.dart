@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import 'package:roast/app/constants/api_constants.dart';
+import 'package:roast/app/constants/sizeConstant.dart';
+import 'package:roast/main.dart';
 
 import '../modules/choose_your_targets/bindings/choose_your_targets_binding.dart';
 import '../modules/choose_your_targets/views/choose_your_targets_view.dart';
@@ -22,7 +25,10 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.MAIN_HOME;
+  static String INITIAL =
+      (isNullEmptyOrFalse(box.read(ArgumentConstant.start)))
+          ? Routes.PICK_YOUR_POISON
+          : Routes.MAIN_HOME;
 
   static final routes = [
     GetPage(
