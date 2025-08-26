@@ -83,14 +83,53 @@ class HistoryScreenView extends GetView<HistoryScreenController> {
                 Obx(() {
                   if (controller.historyList.isEmpty) {
                     return Expanded(
-                      child: Center(
-                        child: Text(
-                          "No history available",
-                          style: TextStyle(
-                            fontSize: MySize.getHeight(16),
-                            color: Colors.grey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: MySize.getHeight(100),
+                            width: MySize.getHeight(100),
+                            padding: const EdgeInsets.all(25),
+                            decoration: BoxDecoration(
+                              color: ColorConstants.primaryColor.withValues(
+                                alpha: 0.1,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: ColorConstants.primaryColor.withValues(
+                                    alpha: 0.1,
+                                  ),
+                                  blurRadius: 10,
+                                  spreadRadius: 3,
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            child: Image.asset(
+                              ImageConstant.fill_medium,
+                              color: ColorConstants.primaryColor,
+                              height: MySize.getHeight(30),
+                            ),
                           ),
-                        ),
+                          SizedBox(height: MySize.getHeight(20)),
+                          Text(
+                            "Nothing roasted yet",
+                            style: TextStyle(
+                              fontSize: MySize.getHeight(16),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          SizedBox(height: MySize.getHeight(5)),
+                          Text(
+                            "Start roasting to see your previous roasts",
+                            style: TextStyle(
+                              fontSize: MySize.getHeight(13),
+                              color: Colors.black38,
+                            ),
+                          ),
+                        ],
                       ),
                     );
                   }
