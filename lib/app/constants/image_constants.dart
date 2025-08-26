@@ -22,4 +22,16 @@ class ImageConstant {
   static const share = "${imagePath}share.png";
   static const copy = "${imagePath}copy.png";
   static const appicon = "${imagePath}appicon.png";
+
+  static const crown = "${imagePath}crown.png";
+  static const lock = "${imagePath}lock.png";
+  static const power = "${imagePath}power.png";
+  static const unlimited = "${imagePath}unlimited.png";
+  static const feedback = "${imagePath}feedback.png";
+  static const info = "${imagePath}info.png";
+  static const policy = "${imagePath}policy.png";
+  static const review = "${imagePath}review.png";
+  static const support = "${imagePath}support.png";
+  static const terms = "${imagePath}terms.png";
+  static const version = "${imagePath}version.png";
 }
