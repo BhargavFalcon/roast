@@ -3,4 +3,6 @@ class ArgumentConstant {
   static const roastList = "roastList";
   static const historyList = "historyList";
   static const start = "start";
+  static const poison = "poison";
+  static const target = "target";
 }

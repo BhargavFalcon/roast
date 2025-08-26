@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:roast/app/constants/api_constants.dart';
 import 'package:roast/app/constants/color_constant.dart';
 import 'package:roast/app/constants/image_constants.dart';
 import 'package:roast/app/constants/sizeConstant.dart';
+import 'package:roast/main.dart';
 
 import '../../../routes/app_pages.dart';
 import '../controllers/stay_loop_controller.dart';
@@ -146,6 +148,7 @@ class StayLoopView extends GetView<StayLoopController> {
             Spacer(),
             InkWell(
               onTap: () {
+                box.write(ArgumentConstant.start, true);
                 Get.offAllNamed(Routes.MAIN_HOME);
               },
               child: Container(

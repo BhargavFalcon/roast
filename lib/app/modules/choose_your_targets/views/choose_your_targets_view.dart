@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:roast/app/constants/api_constants.dart';
 import 'package:roast/app/constants/color_constant.dart';
 import 'package:roast/app/constants/image_constants.dart';
 import 'package:roast/app/constants/sizeConstant.dart';
+import 'package:roast/main.dart';
 
 import '../../../routes/app_pages.dart';
 import '../controllers/choose_your_targets_controller.dart';
@@ -206,6 +208,12 @@ class ChooseYourTargetsView extends GetView<ChooseYourTargetsController> {
 
                   onTap: () {
                     if (anySelected) {
+                      box.write(
+                        ArgumentConstant.target,
+                        controller.ChooseTargetList.map(
+                          (e) => e.toJson(),
+                        ).toList(),
+                      );
                       Get.offAllNamed(Routes.STAY_LOOP);
                     }
                   },

@@ -73,6 +73,18 @@ class RoastScreenController extends GetxController {
 
   @override
   void onInit() {
+    final poisonList = box.read(ArgumentConstant.poison) ?? [];
+    if (!isNullEmptyOrFalse(poisonList)) {
+      PickPoisonList.value = List<Selector>.from(
+        (poisonList as List).map((item) => Selector.fromJson(item)),
+      );
+    }
+    final targetList = box.read(ArgumentConstant.target) ?? [];
+    if (!isNullEmptyOrFalse(targetList)) {
+      ChooseTargetList.value = List<Selector>.from(
+        (targetList as List).map((item) => Selector.fromJson(item)),
+      );
+    }
     super.onInit();
   }
 

@@ -23,7 +23,7 @@ class HistoryScreenView extends GetView<HistoryScreenController> {
         builder: (controller) {
           return Padding(
             padding: EdgeInsets.only(
-              top: MediaQuery.of(context).padding.top + 15,
+              top: MediaQuery.of(context).padding.top + 5,
               left: 10,
               right: 10,
             ),
@@ -156,7 +156,7 @@ class HistoryScreenView extends GetView<HistoryScreenController> {
                             GridView.builder(
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3,
+                                    crossAxisCount: 4,
                                   ),
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),

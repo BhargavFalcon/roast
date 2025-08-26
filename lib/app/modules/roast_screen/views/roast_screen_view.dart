@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:roast/app/constants/api_constants.dart';
 import 'package:roast/app/constants/color_constant.dart';
 import 'package:roast/app/constants/image_constants.dart';
 import 'package:roast/app/constants/sizeConstant.dart';
+import 'package:roast/main.dart';
 
 import '../controllers/roast_screen_controller.dart';
 
@@ -25,7 +27,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
           body: Obx(
             () => Padding(
               padding: EdgeInsets.only(
-                top: MediaQuery.of(context).padding.top + 15,
+                top: MediaQuery.of(context).padding.top + 5,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,10 +48,6 @@ class RoastScreenView extends GetView<RoastScreenController> {
                             SizedBox(height: MySize.getHeight(10)),
                             _buildTargetSelectionCard(),
                             SizedBox(height: MySize.getHeight(10)),
-                            _buildInstructions(),
-                            SizedBox(height: MySize.getHeight(5)),
-                            _buildRoastButton(),
-                            SizedBox(height: MySize.getHeight(10)),
                           ],
                         ),
                       ),
@@ -57,6 +55,18 @@ class RoastScreenView extends GetView<RoastScreenController> {
                   ),
                 ],
               ),
+            ),
+          ),
+          bottomNavigationBar: Padding(
+            padding: EdgeInsets.only(top: 5, right: 10, left: 10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildInstructions(),
+                SizedBox(height: MySize.getHeight(5)),
+                _buildRoastButton(),
+                SizedBox(height: MySize.getHeight(10)),
+              ],
             ),
           ),
         );
@@ -183,10 +193,16 @@ class RoastScreenView extends GetView<RoastScreenController> {
                   bool isSelected = poison.isSelected.value;
                   return Expanded(
                     child: GestureDetector(
-                      onTap:
-                          () =>
-                              poison.isSelected.value =
-                                  !poison.isSelected.value,
+                      onTap: () {
+                        poison.isSelected.value = !poison.isSelected.value;
+                        box.write(
+                          ArgumentConstant.poison,
+                          controller.PickPoisonList.map(
+                            (e) => e.toJson(),
+                          ).toList(),
+                        );
+                      },
+
                       child: _buildSelectionItem(
                         icon: Text(
                           poison.textIcon ?? "",
@@ -220,10 +236,15 @@ class RoastScreenView extends GetView<RoastScreenController> {
                   bool isSelected = target.isSelected.value;
                   return Expanded(
                     child: GestureDetector(
-                      onTap:
-                          () =>
-                              target.isSelected.value =
-                                  !target.isSelected.value,
+                      onTap: () {
+                        target.isSelected.value = !target.isSelected.value;
+                        box.write(
+                          ArgumentConstant.target,
+                          controller.ChooseTargetList.map(
+                            (e) => e.toJson(),
+                          ).toList(),
+                        );
+                      },
                       child: _buildSelectionItem(
                         icon: Text(
                           target.textIcon ?? "",

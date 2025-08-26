@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:roast/app/constants/api_constants.dart';
 import 'package:roast/app/constants/color_constant.dart';
 import 'package:roast/app/constants/image_constants.dart';
 import 'package:roast/app/constants/sizeConstant.dart';
 import 'package:roast/app/routes/app_pages.dart';
+import 'package:roast/main.dart';
 
 import '../controllers/pick_your_poison_controller.dart';
 
@@ -207,6 +209,12 @@ class PickYourPoisonView extends GetView<PickYourPoisonController> {
 
                   onTap: () {
                     if (anySelected) {
+                      box.write(
+                        ArgumentConstant.poison,
+                        controller.PickPoisonList.map(
+                          (e) => e.toJson(),
+                        ).toList(),
+                      );
                       Get.offAllNamed(Routes.CHOOSE_YOUR_TARGETS);
                     }
                   },
