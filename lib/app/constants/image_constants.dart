@@ -34,4 +34,5 @@ class ImageConstant {
   static const support = "${imagePath}support.png";
   static const terms = "${imagePath}terms.png";
   static const version = "${imagePath}version.png";
+  static const moreApp = "${imagePath}moreApp.png";
 }
