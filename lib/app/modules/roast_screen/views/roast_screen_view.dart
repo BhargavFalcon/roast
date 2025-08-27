@@ -371,7 +371,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
               isSelected
                   ? ColorConstants.primaryColor
                   : ColorConstants.primaryColor.withValues(alpha: 0.2),
-          width: 1,
+          width: 1.5,
         ),
       ),
       child: Column(

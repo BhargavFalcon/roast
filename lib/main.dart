@@ -23,7 +23,7 @@ void main() async {
   ]);
 
   await GetStorage.init();
-  box.writeIfNull(ArgumentConstant.roastCoin, 1);
+  box.writeIfNull(ArgumentConstant.roastCoin, 3);
   runApp(
     GetMaterialApp(
       title: "Application",

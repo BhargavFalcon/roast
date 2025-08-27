@@ -8,6 +8,7 @@ import 'package:roast/app/constants/sizeConstant.dart';
 import 'package:roast/app/model/historyModel.dart';
 import 'package:roast/app/routes/app_pages.dart';
 
+import '../../../../main.dart';
 import '../controllers/history_screen_controller.dart';
 
 class HistoryScreenView extends GetView<HistoryScreenController> {
@@ -68,7 +69,7 @@ class HistoryScreenView extends GetView<HistoryScreenController> {
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            "0",
+                            box.read(ArgumentConstant.roastCoin).toString(),
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
