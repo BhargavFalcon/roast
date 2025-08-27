@@ -1,4 +1,4 @@
-package com.falcon.roastme
+package com.falconapps.roastme
 
 import io.flutter.embedding.android.FlutterActivity
 
