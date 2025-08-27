@@ -145,7 +145,6 @@ class RoastScreenView extends GetView<RoastScreenController> {
       subtitle: "Choose your roast intensity level",
       child: Column(
         children: [
-          SizedBox(height: MySize.getHeight(15)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children:
@@ -185,7 +184,6 @@ class RoastScreenView extends GetView<RoastScreenController> {
           "Pick your roast style to match your vibe.The \nmore unhinged, the better",
       child: Column(
         children: [
-          SizedBox(height: MySize.getHeight(15)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children:
@@ -228,7 +226,6 @@ class RoastScreenView extends GetView<RoastScreenController> {
           "What should we roast? The more you pick, the \nmore brutal the result.",
       child: Column(
         children: [
-          SizedBox(height: MySize.getHeight(15)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children:
