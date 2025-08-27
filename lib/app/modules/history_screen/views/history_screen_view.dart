@@ -9,6 +9,7 @@ import 'package:roast/app/model/historyModel.dart';
 import 'package:roast/app/routes/app_pages.dart';
 
 import '../../../../main.dart';
+import '../../../constants/subscriptionService.dart';
 import '../controllers/history_screen_controller.dart';
 
 class HistoryScreenView extends GetView<HistoryScreenController> {
@@ -42,41 +43,46 @@ class HistoryScreenView extends GetView<HistoryScreenController> {
                         color: Colors.black,
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: ColorConstants.primaryColor,
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: ColorConstants.primaryColor.withValues(
-                              alpha: 0.3,
+                    InkWell(
+                      onTap: () async {
+                        await SubscriptionService().presentPaywall();
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: ColorConstants.primaryColor,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: ColorConstants.primaryColor.withValues(
+                                alpha: 0.3,
+                              ),
+                              blurRadius: 5,
+                              spreadRadius: 2,
                             ),
-                            blurRadius: 5,
-                            spreadRadius: 2,
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            ImageConstant.medium,
-                            height: MySize.getHeight(20),
-                            color: Colors.white,
-                          ),
-                          const SizedBox(width: 5),
-                          Text(
-                            box.read(ArgumentConstant.roastCoin).toString(),
-                            style: TextStyle(
+                          ],
+                        ),
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              ImageConstant.medium,
+                              height: MySize.getHeight(20),
                               color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: MySize.getHeight(13),
                             ),
-                          ),
-                        ],
+                            const SizedBox(width: 5),
+                            Text(
+                              box.read(ArgumentConstant.roastCoin).toString(),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: MySize.getHeight(13),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

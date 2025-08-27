@@ -147,8 +147,10 @@ class RoastScreenController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        int roastCoin = box.read(ArgumentConstant.roastCoin) ?? 0;
-        box.write(ArgumentConstant.roastCoin, roastCoin - 1);
+        if (box.read(ArgumentConstant.roastCoin) > 0) {
+          int roastCoin = box.read(ArgumentConstant.roastCoin) ?? 0;
+          box.write(ArgumentConstant.roastCoin, roastCoin - 1);
+        }
         await _handleSuccessResponse(response);
       } else {
         _handleErrorResponse(response);

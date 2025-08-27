@@ -614,8 +614,9 @@ class RoastScreenView extends GetView<RoastScreenController> {
       return;
     }
 
-    if (box.read(ArgumentConstant.roastCoin) <= 0) {
-      _noCoin();
+    if (box.read(ArgumentConstant.roastCoin) <= 0 &&
+        !(await SubscriptionService.hasActiveSubscription())) {
+      await SubscriptionService().presentPaywall();
       return;
     }
 
@@ -635,7 +636,6 @@ class RoastScreenView extends GetView<RoastScreenController> {
             controller.ChooseTargetList.where(
               (poison) => poison.isSelected.value,
             ).map((e) => e.label!.toLowerCase()).toList();
-
         controller.roastImageApi(
           context: Get.context!,
           style: style,
