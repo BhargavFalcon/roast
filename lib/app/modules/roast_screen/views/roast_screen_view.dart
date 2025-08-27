@@ -9,6 +9,7 @@ import 'package:roast/app/constants/api_constants.dart';
 import 'package:roast/app/constants/color_constant.dart';
 import 'package:roast/app/constants/image_constants.dart';
 import 'package:roast/app/constants/sizeConstant.dart';
+import 'package:roast/app/constants/subscriptionService.dart';
 import 'package:roast/main.dart';
 
 import '../controllers/roast_screen_controller.dart';
@@ -89,36 +90,41 @@ class RoastScreenView extends GetView<RoastScreenController> {
               color: Colors.black,
             ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: ColorConstants.primaryColor,
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: [
-                BoxShadow(
-                  color: ColorConstants.primaryColor.withValues(alpha: 0.3),
-                  blurRadius: 5,
-                  spreadRadius: 2,
-                ),
-              ],
-            ),
-            child: Row(
-              children: [
-                Image.asset(
-                  ImageConstant.medium,
-                  height: MySize.getHeight(20),
-                  color: Colors.white,
-                ),
-                const SizedBox(width: 5),
-                Text(
-                  box.read(ArgumentConstant.roastCoin).toString(),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: MySize.getHeight(13),
+          InkWell(
+            onTap: () async {
+              await SubscriptionService().presentPaywall();
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: ColorConstants.primaryColor,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: ColorConstants.primaryColor.withValues(alpha: 0.3),
+                    blurRadius: 5,
+                    spreadRadius: 2,
                   ),
-                ),
-              ],
+                ],
+              ),
+              child: Row(
+                children: [
+                  Image.asset(
+                    ImageConstant.medium,
+                    height: MySize.getHeight(20),
+                    color: Colors.white,
+                  ),
+                  const SizedBox(width: 5),
+                  Text(
+                    box.read(ArgumentConstant.roastCoin).toString(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: MySize.getHeight(13),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
