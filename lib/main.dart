@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:roast/app/constants/api_constants.dart';
 
 import 'app/routes/app_pages.dart';
 
@@ -20,7 +21,9 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
   await GetStorage.init();
+  box.writeIfNull(ArgumentConstant.roastCoin, 1);
   runApp(
     GetMaterialApp(
       title: "Application",

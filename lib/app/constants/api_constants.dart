@@ -5,4 +5,5 @@ class ArgumentConstant {
   static const start = "start";
   static const poison = "poison";
   static const target = "target";
+  static const roastCoin = "roastCoin";
 }

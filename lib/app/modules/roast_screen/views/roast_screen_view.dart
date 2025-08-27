@@ -111,7 +111,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
                 ),
                 const SizedBox(width: 5),
                 Text(
-                  "0",
+                  box.read(ArgumentConstant.roastCoin).toString(),
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -611,6 +611,11 @@ class RoastScreenView extends GetView<RoastScreenController> {
       return;
     }
 
+    if (box.read(ArgumentConstant.roastCoin) <= 0) {
+      _noCoin();
+      return;
+    }
+
     await controller.resizeImage(controller.imageFile.value!).then((value) {
       if (!isNullEmptyOrFalse(value)) {
         String selectedBurn =
@@ -698,6 +703,40 @@ class RoastScreenView extends GetView<RoastScreenController> {
               ),
               content: const Text(
                 "Please select an image to roast. You can choose from the gallery or take a new photo.",
+                style: TextStyle(color: Colors.black),
+              ),
+              actions: [
+                CupertinoDialogAction(
+                  onPressed: () => Navigator.of(dialogContext).pop(),
+                  child: Text(
+                    'OK',
+                    style: TextStyle(
+                      color: ColorConstants.primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+      );
+    });
+  }
+
+  void _noCoin() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showCupertinoDialog(
+        context: Get.context!,
+        builder:
+            (BuildContext dialogContext) => CupertinoAlertDialog(
+              title: const Text(
+                'No Roast Coins Left!',
+                style: TextStyle(
+                  color: CupertinoColors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              content: const Text(
+                "You have run out of Roast Coins. Please top up to continue roasting.",
                 style: TextStyle(color: Colors.black),
               ),
               actions: [

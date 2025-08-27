@@ -147,6 +147,8 @@ class RoastScreenController extends GetxController {
       );
 
       if (response.statusCode == 200) {
+        int roastCoin = box.read(ArgumentConstant.roastCoin) ?? 0;
+        box.write(ArgumentConstant.roastCoin, roastCoin - 1);
         await _handleSuccessResponse(response);
       } else {
         _handleErrorResponse(response);
@@ -264,12 +266,6 @@ class RoastScreenController extends GetxController {
         .isSelected
         .value = false;
     burnLevelList[0].isSelected.value = true;
-    for (var item in PickPoisonList) {
-      item.isSelected.value = false;
-    }
-    for (var item in ChooseTargetList) {
-      item.isSelected.value = false;
-    }
   }
 
   void _navigateToPreview(List<String> roastList) async {
