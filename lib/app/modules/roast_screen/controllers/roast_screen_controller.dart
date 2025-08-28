@@ -68,7 +68,7 @@ class RoastScreenController extends GetxController {
       ].obs;
 
   static const int _targetImageSize = 384;
-  static const int _imageQuality = 40;
+  static const int _imageQuality = 30;
   static const int _maxTokens = 200;
 
   @override
@@ -86,6 +86,12 @@ class RoastScreenController extends GetxController {
       );
     }
     super.onInit();
+  }
+
+  Future<void> setImage(BuildContext context, File file) async {
+    imageFile.value = file;
+
+    await precacheImage(FileImage(file), context);
   }
 
   Future<Uint8List> resizeImage(File imageFile) async {
@@ -178,7 +184,7 @@ class RoastScreenController extends GetxController {
   }
 
   Map<String, String> _buildHeaders() {
-    return {"Content-Type": "application/json", "Authorization": "Bearer"};
+    return {"Content-Type": "application/json", "Authorization": "Bearer "};
   }
 
   Map<String, dynamic> _buildRequestBody(

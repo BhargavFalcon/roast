@@ -41,7 +41,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: Column(
                           children: [
-                            _buildPhotoSelectionCard(),
+                            _buildPhotoSelectionCard(context),
                             SizedBox(height: MySize.getHeight(10)),
                             _buildBurnLevelCard(),
                             SizedBox(height: MySize.getHeight(10)),
@@ -132,15 +132,15 @@ class RoastScreenView extends GetView<RoastScreenController> {
     );
   }
 
-  Widget _buildPhotoSelectionCard() {
+  Widget _buildPhotoSelectionCard(BuildContext context) {
     return _buildCard(
       icon: ImageConstant.select,
       title: "Select a Photo",
       subtitle: "Choose from gallery or take a new photo",
       child:
           controller.imageFile.value != null
-              ? _buildImagePreview()
-              : _buildPhotoOptions(),
+              ? _buildImagePreview(context)
+              : _buildPhotoOptions(context),
     );
   }
 
@@ -397,57 +397,64 @@ class RoastScreenView extends GetView<RoastScreenController> {
     );
   }
 
-  Widget _buildImagePreview() {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: ColorConstants.primaryColor.withValues(alpha: 0.3),
-            blurRadius: 6,
-            spreadRadius: 3,
-          ),
-        ],
-      ),
-      child: Stack(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.file(
-              controller.imageFile.value!,
-              height: MySize.getHeight(150),
-              fit: BoxFit.cover,
+  Widget _buildImagePreview(BuildContext context) {
+    return Obx(() {
+      if (controller.imageFile.value == null) {
+        return const SizedBox(); // no image
+      }
+
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: ColorConstants.primaryColor.withValues(alpha: 0.3),
+              blurRadius: 6,
+              spreadRadius: 3,
             ),
-          ),
-          Positioned(
-            right: 10,
-            top: 10,
-            child: InkWell(
-              onTap: () => controller.imageFile.value = null,
-              child: Container(
-                height: 25,
-                width: 25,
-                decoration: BoxDecoration(
-                  color: ColorConstants.primaryColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Icon(Icons.close, size: 15, color: Colors.white),
+          ],
+        ),
+        child: Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.file(
+                controller.imageFile.value!,
+                height: MySize.getHeight(150),
+                fit: BoxFit.cover,
+                gaplessPlayback: true, // avoid flicker on rebuild
               ),
             ),
-          ),
-        ],
-      ),
-    );
+            Positioned(
+              right: 10,
+              top: 10,
+              child: InkWell(
+                onTap: () => controller.imageFile.value = null,
+                child: Container(
+                  height: 25,
+                  width: 25,
+                  decoration: BoxDecoration(
+                    color: ColorConstants.primaryColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Icon(Icons.close, size: 15, color: Colors.white),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    });
   }
 
-  Widget _buildPhotoOptions() {
+  Widget _buildPhotoOptions(BuildContext context) {
     return Row(
       children: [
         Expanded(
           child: InkWell(
             splashColor: Colors.transparent,
             focusColor: Colors.transparent,
-            onTap: _handleGallerySelection,
+            onTap: () => handleGallerySelection(context),
             child: _buildPhotoOptionCard(
               title: "Gallery",
               image: ImageConstant.gallery,
@@ -461,7 +468,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
           child: InkWell(
             splashColor: Colors.transparent,
             focusColor: Colors.transparent,
-            onTap: _handleCameraSelection,
+            onTap: () => handleCameraSelection(context),
             child: _buildPhotoOptionCard(
               title: "Camera",
               image: ImageConstant.camera,
@@ -588,23 +595,23 @@ class RoastScreenView extends GetView<RoastScreenController> {
     burn.isSelected.value = true;
   }
 
-  Future<void> _handleCameraSelection() async {
+  Future<void> handleCameraSelection(BuildContext context) async {
     final status = await Permission.camera.request();
 
     if (status.isGranted) {
-      final file = await ImagePicker().pickImage(source: ImageSource.camera);
+      final file = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (file != null) {
-        controller.imageFile.value = File(file.path);
+        controller.setImage(context, File(file.path));
       }
     } else if (status.isPermanentlyDenied) {
       _showCameraPermissionDialog();
     }
   }
 
-  Future<void> _handleGallerySelection() async {
+  Future<void> handleGallerySelection(BuildContext context) async {
     final file = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (file != null) {
-      controller.imageFile.value = File(file.path);
+      controller.setImage(context, File(file.path));
     }
   }
 
@@ -706,40 +713,6 @@ class RoastScreenView extends GetView<RoastScreenController> {
               ),
               content: const Text(
                 "Please select an image to roast. You can choose from the gallery or take a new photo.",
-                style: TextStyle(color: Colors.black),
-              ),
-              actions: [
-                CupertinoDialogAction(
-                  onPressed: () => Navigator.of(dialogContext).pop(),
-                  child: Text(
-                    'OK',
-                    style: TextStyle(
-                      color: ColorConstants.primaryColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-      );
-    });
-  }
-
-  void _noCoin() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      showCupertinoDialog(
-        context: Get.context!,
-        builder:
-            (BuildContext dialogContext) => CupertinoAlertDialog(
-              title: const Text(
-                'No Roast Coins Left!',
-                style: TextStyle(
-                  color: CupertinoColors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              content: const Text(
-                "You have run out of Roast Coins. Please top up to continue roasting.",
                 style: TextStyle(color: Colors.black),
               ),
               actions: [
