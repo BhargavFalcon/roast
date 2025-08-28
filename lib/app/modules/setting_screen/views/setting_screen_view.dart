@@ -227,68 +227,77 @@ class ShareCard extends StatelessWidget {
   }
 }
 
-class InfoCard extends StatelessWidget {
+class InfoCard extends GetWidget<SettingScreenController> {
   const InfoCard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return _CardContainer(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+    return GetBuilder<SettingScreenController>(
+      init: SettingScreenController(),
+      assignId: true,
+      builder: (controller) {
+        return _CardContainer(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _CircleIcon(iconPath: ImageConstant.info),
-              SizedBox(width: MySize.getWidth(10)),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
                 children: [
-                  Text(
-                    "Information",
-                    style: TextStyle(
-                      fontSize: MySize.getHeight(13),
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  SizedBox(height: MySize.getHeight(2)),
-                  Text(
-                    "Legal and app information",
-                    style: TextStyle(
-                      fontSize: MySize.getHeight(10),
-                      color: Colors.black54,
-                    ),
+                  _CircleIcon(iconPath: ImageConstant.info),
+                  SizedBox(width: MySize.getWidth(10)),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Information",
+                        style: TextStyle(
+                          fontSize: MySize.getHeight(13),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      SizedBox(height: MySize.getHeight(2)),
+                      Text(
+                        "Legal and app information",
+                        style: TextStyle(
+                          fontSize: MySize.getHeight(10),
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
+              SizedBox(height: MySize.getHeight(10)),
+              _OptionTile(
+                iconPath: ImageConstant.policy,
+                title: "Privacy Policy",
+                onTap: () {},
+              ),
+              SizedBox(height: MySize.getHeight(10)),
+              _OptionTile(
+                iconPath: ImageConstant.terms,
+                title: "Terms of Use",
+                onTap: () {},
+              ),
+              SizedBox(height: MySize.getHeight(10)),
+              Obx(
+                () => _OptionTile(
+                  iconPath: ImageConstant.version,
+                  title: "Version ${controller.appVersion.value}",
+                  showArrow: false,
+                ),
+              ),
             ],
           ),
-          SizedBox(height: MySize.getHeight(10)),
-          _OptionTile(
-            iconPath: ImageConstant.policy,
-            title: "Privacy Policy",
-            onTap: () {},
-          ),
-          SizedBox(height: MySize.getHeight(10)),
-          _OptionTile(
-            iconPath: ImageConstant.terms,
-            title: "Terms of Use",
-            onTap: () {},
-          ),
-          SizedBox(height: MySize.getHeight(10)),
-          _OptionTile(
-            iconPath: ImageConstant.version,
-            title: "Version",
-            showArrow: false,
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
 
 class _CardContainer extends StatelessWidget {
   final Widget child;
+
   const _CardContainer({required this.child});
 
   @override
@@ -316,6 +325,7 @@ class _CardContainer extends StatelessWidget {
 class PremiumFeatureTile extends StatelessWidget {
   final String iconPath;
   final String title;
+
   const PremiumFeatureTile({
     super.key,
     required this.iconPath,
@@ -357,6 +367,7 @@ class PremiumFeatureTile extends StatelessWidget {
 class _PrimaryButton extends StatelessWidget {
   final String label;
   final VoidCallback onTap;
+
   const _PrimaryButton({required this.label, required this.onTap});
 
   @override
@@ -449,6 +460,7 @@ class _OptionTile extends StatelessWidget {
 
 class _CircleIcon extends StatelessWidget {
   final String iconPath;
+
   const _CircleIcon({required this.iconPath});
 
   @override

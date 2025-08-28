@@ -1,12 +1,18 @@
 import 'package:get/get.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class SettingScreenController extends GetxController {
-  //TODO: Implement SettingScreenController
+  RxString appVersion = "".obs;
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
+    _loadAppVersion();
+  }
+
+  Future<void> _loadAppVersion() async {
+    final info = await PackageInfo.fromPlatform();
+    appVersion.value = "${info.version} (${info.buildNumber})";
   }
 
   @override
@@ -18,6 +24,4 @@ class SettingScreenController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }
