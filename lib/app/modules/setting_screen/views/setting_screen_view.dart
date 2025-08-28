@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:roast/app/constants/color_constant.dart';
 import 'package:roast/app/constants/image_constants.dart';
 import 'package:roast/app/constants/sizeConstant.dart';
+import 'package:roast/app/constants/subscriptionService.dart';
 
 import '../controllers/setting_screen_controller.dart';
 
@@ -106,7 +107,12 @@ class PremiumCard extends StatelessWidget {
             iconPath: ImageConstant.lock,
             title: "Remove Annoying Paywalls",
           ),
-          _PrimaryButton(label: "Upgrade Now", onTap: () {}),
+          _PrimaryButton(
+            label: "Upgrade Now",
+            onTap: () async {
+              await SubscriptionService().presentPaywall();
+            },
+          ),
         ],
       ),
     );

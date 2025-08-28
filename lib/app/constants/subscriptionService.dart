@@ -40,9 +40,6 @@ class SubscriptionService {
   }
 
   Future<void> presentPaywall() async {
-    final paywallResult = await RevenueCatUI.presentPaywall();
-    if (paywallResult == PaywallResult.purchased) {
-      // Handle successful purchase
-    }
+    await RevenueCatUI.presentPaywall();
   }
 }
