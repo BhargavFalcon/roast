@@ -130,7 +130,7 @@ class StayLoopView extends GetView<StayLoopController> {
                           Text(
                             controller.StayLoopList[index].subLabel ?? "",
                             style: TextStyle(
-                              fontSize: MySize.getHeight(10),
+                              fontSize: MySize.getHeight(9),
                               height: 1.2,
                               color: Colors.black54,
                             ),

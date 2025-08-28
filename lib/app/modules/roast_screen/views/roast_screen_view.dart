@@ -599,7 +599,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
     final status = await Permission.camera.request();
 
     if (status.isGranted) {
-      final file = await ImagePicker().pickImage(source: ImageSource.gallery);
+      final file = await ImagePicker().pickImage(source: ImageSource.camera);
       if (file != null) {
         controller.setImage(context, File(file.path));
       }
