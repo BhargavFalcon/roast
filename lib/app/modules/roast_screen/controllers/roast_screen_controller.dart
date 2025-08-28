@@ -139,6 +139,8 @@ class RoastScreenController extends GetxController {
     Uint8List? imageBytes,
   }) async {
     try {
+      FireLoader.show(context);
+
       final response = await _makeApiRequest(
         style,
         target,
@@ -157,6 +159,8 @@ class RoastScreenController extends GetxController {
       }
     } catch (e) {
       print("Exception in API call: $e");
+    } finally {
+      FireLoader.hide(context);
     }
   }
 
@@ -174,7 +178,7 @@ class RoastScreenController extends GetxController {
   }
 
   Map<String, String> _buildHeaders() {
-    return {"Content-Type": "application/json", "Authorization": "Bearer "};
+    return {"Content-Type": "application/json", "Authorization": "Bearer"};
   }
 
   Map<String, dynamic> _buildRequestBody(
@@ -215,6 +219,7 @@ class RoastScreenController extends GetxController {
 
   Future<void> _handleSuccessResponse(http.Response response) async {
     final data = jsonDecode(response.body);
+    print(data);
     final content = data["choices"][0]["message"]["content"];
     final roastList = _parseRoastList(content);
 

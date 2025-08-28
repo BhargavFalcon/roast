@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class MySize {
   static late MediaQueryData _mediaQueryData;
@@ -399,4 +402,41 @@ void showDarkCupertinoErrorDialog(
       );
     },
   );
+}
+
+class FireLoader {
+  static void show(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      barrierColor: Colors.transparent,
+      useSafeArea: false,
+      builder: (context) {
+        return SizedBox.expand(
+          child: Stack(
+            children: [
+              BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
+                child: Container(color: Colors.white.withValues(alpha: 0.5)),
+              ),
+              Center(
+                child: SizedBox(
+                  height: 200,
+                  child: Lottie.asset(
+                    'assets/Fire_animation.json',
+                    fit: BoxFit.contain,
+                    repeat: true,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  static void hide(BuildContext context) {
+    Navigator.of(context, rootNavigator: true).pop();
+  }
 }
