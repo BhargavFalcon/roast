@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:roast/app/constants/color_constant.dart';
 import 'package:roast/app/constants/image_constants.dart';
 import 'package:roast/app/constants/sizeConstant.dart';
 import 'package:roast/app/constants/subscriptionService.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../controllers/setting_screen_controller.dart';
 
@@ -119,56 +122,74 @@ class PremiumCard extends StatelessWidget {
   }
 }
 
-class SupportCard extends StatelessWidget {
+class SupportCard extends GetWidget<SettingScreenController> {
   const SupportCard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return _CardContainer(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+    return GetBuilder<SettingScreenController>(
+      init: SettingScreenController(),
+      assignId: true,
+      builder: (controller) {
+        return _CardContainer(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _CircleIcon(iconPath: ImageConstant.feedback),
-              SizedBox(width: MySize.getWidth(10)),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
                 children: [
-                  Text(
-                    "Support & Feedback",
-                    style: TextStyle(
-                      fontSize: MySize.getHeight(13),
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  SizedBox(height: MySize.getHeight(2)),
-                  Text(
-                    "Rate the app or get help",
-                    style: TextStyle(
-                      fontSize: MySize.getHeight(10),
-                      color: Colors.black54,
-                    ),
+                  _CircleIcon(iconPath: ImageConstant.feedback),
+                  SizedBox(width: MySize.getWidth(10)),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Support & Feedback",
+                        style: TextStyle(
+                          fontSize: MySize.getHeight(13),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      SizedBox(height: MySize.getHeight(2)),
+                      Text(
+                        "Rate the app or get help",
+                        style: TextStyle(
+                          fontSize: MySize.getHeight(10),
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
+              SizedBox(height: MySize.getHeight(10)),
+              _OptionTile(
+                iconPath: ImageConstant.review,
+                title: "Review App",
+                onTap: () {
+                  controller.rateMyApp.init();
+                  controller.rateMyApp.launchStore();
+                },
+              ),
+              SizedBox(height: MySize.getHeight(10)),
+              _OptionTile(
+                iconPath: ImageConstant.support,
+                title: "Support",
+                onTap: () {
+                  String subject =
+                      "Support RoastMe ${(Platform.isIOS) ? "iOS" : "Android"}";
+                  urlLauncher(
+                    url: Uri.parse(
+                      "mailto:contact@falconsolutions.co?subject=$subject",
+                    ),
+                    name: "Mail",
+                  );
+                },
+              ),
             ],
           ),
-          SizedBox(height: MySize.getHeight(10)),
-          _OptionTile(
-            iconPath: ImageConstant.review,
-            title: "Review App",
-            onTap: () {},
-          ),
-          SizedBox(height: MySize.getHeight(10)),
-          _OptionTile(
-            iconPath: ImageConstant.support,
-            title: "Support",
-            onTap: () {},
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -213,13 +234,29 @@ class ShareCard extends StatelessWidget {
           _OptionTile(
             iconPath: ImageConstant.share,
             title: "Share App",
-            onTap: () {},
+            onTap: () {
+              String storeUrl =
+                  (Platform.isAndroid)
+                      ? "https://play.google.com/store/apps/details?id=com.falconapps.roastme"
+                      : "https://itunes.apple.com/us/app/id6751572645";
+              String shareContent = "Download Roast Me app: $storeUrl";
+              SharePlus.instance.share(ShareParams(text: shareContent));
+            },
           ),
           SizedBox(height: MySize.getHeight(10)),
           _OptionTile(
             iconPath: ImageConstant.moreApp,
             title: "More Apps from Us",
-            onTap: () {},
+            onTap: () {
+              urlLauncher(
+                url: Uri.parse(
+                  (Platform.isIOS)
+                      ? "https://itunes.apple.com/in/developer/aditya-neelkanth/id1071406552"
+                      : "https://play.google.com/store/apps/dev?id=8336750947549318654",
+                ),
+                name: "Store",
+              );
+            },
           ),
         ],
       ),

@@ -4,7 +4,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MySize {
   static late MediaQueryData _mediaQueryData;
@@ -439,4 +441,59 @@ class FireLoader {
   static void hide(BuildContext context) {
     Navigator.of(context, rootNavigator: true).pop();
   }
+}
+
+urlLauncher({required Uri url, String name = "", String? error}) async {
+  try {
+    if (!await launchUrl(url, mode: LaunchMode.externalNonBrowserApplication)) {
+      launchUrl(url, mode: LaunchMode.externalApplication);
+    }
+  } catch (e) {
+    print(e);
+    showCommonDialog(
+      title: "Error",
+      message: error ?? "Unable to find $name in your device",
+    );
+  }
+}
+
+void showCommonDialog({
+  required String title,
+  required String message,
+  String buttonText = "OK",
+  VoidCallback? onPressed,
+}) {
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    showCupertinoDialog(
+      context: Get.context!,
+      builder:
+          (BuildContext dialogContext) => CupertinoAlertDialog(
+            title: Text(
+              title,
+              style: const TextStyle(
+                color: CupertinoColors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            content: Text(message, style: const TextStyle(color: Colors.black)),
+            actions: [
+              CupertinoDialogAction(
+                onPressed: () {
+                  Navigator.of(dialogContext).pop();
+                  if (onPressed != null) onPressed();
+                },
+                child: Text(
+                  buttonText,
+                  style: const TextStyle(
+                    color:
+                        Colors
+                            .blue, // yaha apka ColorConstants.primaryColor laga do
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+    );
+  });
 }

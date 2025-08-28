@@ -617,7 +617,11 @@ class RoastScreenView extends GetView<RoastScreenController> {
 
   void _handleRoastButtonTap() async {
     if (controller.imageFile.value == null) {
-      _showNoImageSelect();
+      showCommonDialog(
+        title: 'Oops!',
+        message:
+            "Please select an image to roast. You can choose from the gallery or take a new photo.",
+      );
       return;
     }
 
@@ -690,40 +694,6 @@ class RoastScreenView extends GetView<RoastScreenController> {
                   child: Text(
                     'Open Settings',
                     style: TextStyle(color: ColorConstants.primaryColor),
-                  ),
-                ),
-              ],
-            ),
-      );
-    });
-  }
-
-  void _showNoImageSelect() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      showCupertinoDialog(
-        context: Get.context!,
-        builder:
-            (BuildContext dialogContext) => CupertinoAlertDialog(
-              title: const Text(
-                'Oops!',
-                style: TextStyle(
-                  color: CupertinoColors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              content: const Text(
-                "Please select an image to roast. You can choose from the gallery or take a new photo.",
-                style: TextStyle(color: Colors.black),
-              ),
-              actions: [
-                CupertinoDialogAction(
-                  onPressed: () => Navigator.of(dialogContext).pop(),
-                  child: Text(
-                    'OK',
-                    style: TextStyle(
-                      color: ColorConstants.primaryColor,
-                      fontWeight: FontWeight.bold,
-                    ),
                   ),
                 ),
               ],
