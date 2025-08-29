@@ -165,6 +165,10 @@ class RoastScreenController extends GetxController {
       }
     } catch (e) {
       print("Exception in API call: $e");
+      showCommonDialog(
+        title: 'Oops!',
+        message: "Something went wrong. Please try again later.",
+      );
     } finally {
       FireLoader.hide(context);
     }
@@ -294,6 +298,10 @@ class RoastScreenController extends GetxController {
 
   void _handleErrorResponse(http.Response response) {
     print("API Error: ${response.statusCode} - ${response.body}");
+    showCommonDialog(
+      title: 'Oops!',
+      message: "Something went wrong. Please try again later.",
+    );
   }
 
   Future<Uint8List> fileToUint8List(File imageFile) async {
