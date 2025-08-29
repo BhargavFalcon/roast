@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -73,18 +74,21 @@ class RoastScreenController extends GetxController {
 
   @override
   void onInit() {
-    final poisonList = box.read(ArgumentConstant.poison) ?? [];
-    if (!isNullEmptyOrFalse(poisonList)) {
-      PickPoisonList.value = List<Selector>.from(
-        (poisonList as List).map((item) => Selector.fromJson(item)),
-      );
-    }
-    final targetList = box.read(ArgumentConstant.target) ?? [];
-    if (!isNullEmptyOrFalse(targetList)) {
-      ChooseTargetList.value = List<Selector>.from(
-        (targetList as List).map((item) => Selector.fromJson(item)),
-      );
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await requestTrackingPermission();
+      final poisonList = box.read(ArgumentConstant.poison) ?? [];
+      if (!isNullEmptyOrFalse(poisonList)) {
+        PickPoisonList.value = List<Selector>.from(
+          (poisonList as List).map((item) => Selector.fromJson(item)),
+        );
+      }
+      final targetList = box.read(ArgumentConstant.target) ?? [];
+      if (!isNullEmptyOrFalse(targetList)) {
+        ChooseTargetList.value = List<Selector>.from(
+          (targetList as List).map((item) => Selector.fromJson(item)),
+        );
+      }
+    });
     super.onInit();
   }
 
@@ -306,6 +310,15 @@ class RoastScreenController extends GetxController {
 
   Future<Uint8List> fileToUint8List(File imageFile) async {
     return await imageFile.readAsBytes();
+  }
+
+  Future<void> requestTrackingPermission() async {
+    if (Platform.isIOS) {
+      final status = await AppTrackingTransparency.trackingAuthorizationStatus;
+      if (status == TrackingStatus.notDetermined) {
+        await AppTrackingTransparency.requestTrackingAuthorization();
+      }
+    }
   }
 
   @override

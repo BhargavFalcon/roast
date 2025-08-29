@@ -43,6 +43,8 @@ dependencies:
   flutter_native_splash: ^2.4.6
   flutter_image_compress: ^2.4.0
   flutter_local_notifications: ^19.4.1
+  app_tracking_transparency: ^2.0.6+1
+  webview_flutter: ^4.8.0
   timezone: ^0.10.1
   flutter_timezone: ^4.1.1
   purchases_ui_flutter: ^9.2.1
