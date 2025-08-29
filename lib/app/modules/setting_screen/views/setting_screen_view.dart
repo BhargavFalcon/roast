@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:roast/app/constants/api_constants.dart';
 import 'package:roast/app/constants/color_constant.dart';
 import 'package:roast/app/constants/image_constants.dart';
 import 'package:roast/app/constants/sizeConstant.dart';
 import 'package:roast/app/constants/subscriptionService.dart';
+import 'package:roast/app/routes/app_pages.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../controllers/setting_screen_controller.dart';
@@ -308,13 +310,31 @@ class InfoCard extends GetWidget<SettingScreenController> {
               _OptionTile(
                 iconPath: ImageConstant.policy,
                 title: "Privacy Policy",
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed(
+                    Routes.WEB_VIEW_SCREEN,
+                    arguments: {
+                      ArgumentConstant.url:
+                          "https://www.falconsolutions.co/privacy-policy",
+                      ArgumentConstant.appTitle: "Privacy Policy",
+                    },
+                  );
+                },
               ),
               SizedBox(height: MySize.getHeight(10)),
               _OptionTile(
                 iconPath: ImageConstant.terms,
                 title: "Terms of Use",
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed(
+                    Routes.WEB_VIEW_SCREEN,
+                    arguments: {
+                      ArgumentConstant.url:
+                          "https://www.falconsolutions.co/terms-conditions",
+                      ArgumentConstant.appTitle: "Terms of Use",
+                    },
+                  );
+                },
               ),
               SizedBox(height: MySize.getHeight(10)),
               Obx(

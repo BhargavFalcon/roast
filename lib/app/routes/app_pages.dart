@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:roast/app/constants/api_constants.dart';
-import 'package:roast/app/constants/sizeConstant.dart';
-import 'package:roast/main.dart';
 
+import '../../main.dart';
+import '../constants/api_constants.dart';
+import '../constants/sizeConstant.dart';
 import '../modules/choose_your_targets/bindings/choose_your_targets_binding.dart';
 import '../modules/choose_your_targets/views/choose_your_targets_view.dart';
 import '../modules/history_screen/bindings/history_screen_binding.dart';
@@ -19,16 +19,17 @@ import '../modules/setting_screen/bindings/setting_screen_binding.dart';
 import '../modules/setting_screen/views/setting_screen_view.dart';
 import '../modules/stay_loop/bindings/stay_loop_binding.dart';
 import '../modules/stay_loop/views/stay_loop_view.dart';
+import '../modules/web_view_screen/bindings/web_view_screen_binding.dart';
+import '../modules/web_view_screen/views/web_view_screen_view.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static String INITIAL =
-      (isNullEmptyOrFalse(box.read(ArgumentConstant.start)))
-          ? Routes.PICK_YOUR_POISON
-          : Routes.MAIN_HOME;
+  static String INITIAL = (isNullEmptyOrFalse(box.read(ArgumentConstant.start)))
+      ? Routes.PICK_YOUR_POISON
+      : Routes.MAIN_HOME;
 
   static final routes = [
     GetPage(
@@ -86,6 +87,11 @@ class AppPages {
       transition: Transition.noTransition,
       transitionDuration: Duration.zero,
       binding: RoastPreviewScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.WEB_VIEW_SCREEN,
+      page: () => const WebViewScreenView(),
+      binding: WebViewScreenBinding(),
     ),
   ];
 }
