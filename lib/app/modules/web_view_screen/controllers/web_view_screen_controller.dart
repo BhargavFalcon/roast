@@ -12,6 +12,7 @@ class WebViewScreenController extends GetxController {
   void onInit() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (Get.arguments != null) {
+        title.value = Get.arguments[ArgumentConstant.appTitle];
         webUrl.value = Get.arguments[ArgumentConstant.url];
       }
       webViewController =
