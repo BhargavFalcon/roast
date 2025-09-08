@@ -614,7 +614,6 @@ class RoastScreenView extends GetView<RoastScreenController> {
   }
 
   void _handleRoastButtonTap() async {
-    FeedbackManager.incrementButtonClick(Get.context!);
     if (controller.imageFile.value == null) {
       showCommonDialog(
         title: 'Oops!',
@@ -623,7 +622,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
       );
       return;
     }
-
+    FeedbackManager.incrementButtonClick(Get.context!);
     if (box.read(ArgumentConstant.roastCoin) <= 0 &&
         !(await SubscriptionService.hasActiveSubscription())) {
       await SubscriptionService().presentPaywall();

@@ -29,7 +29,7 @@ class FeedbackManager {
       context: context,
       builder:
           (context) => CupertinoAlertDialog(
-            title: Text('Did you find the perfect name today?'),
+            title: Text('Are you enjoying Roasting people?'),
             actions: [
               CupertinoDialogAction(
                 onPressed: () => Navigator.pop(context, 'NO'),
