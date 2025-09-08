@@ -82,16 +82,15 @@ class PremiumCard extends StatelessWidget {
                   Text(
                     "Upgrade to Premium",
                     style: TextStyle(
-                      fontSize: MySize.getHeight(13),
+                      fontSize: MySize.getHeight(16),
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
-                  SizedBox(height: MySize.getHeight(2)),
                   Text(
                     "Unlock unlimited roasting power",
                     style: TextStyle(
-                      fontSize: MySize.getHeight(10),
+                      fontSize: MySize.getHeight(12),
                       color: Colors.black54,
                     ),
                   ),
@@ -147,16 +146,15 @@ class SupportCard extends GetWidget<SettingScreenController> {
                       Text(
                         "Support & Feedback",
                         style: TextStyle(
-                          fontSize: MySize.getHeight(13),
+                          fontSize: MySize.getHeight(16),
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-                      SizedBox(height: MySize.getHeight(2)),
                       Text(
                         "Rate the app or get help",
                         style: TextStyle(
-                          fontSize: MySize.getHeight(10),
+                          fontSize: MySize.getHeight(12),
                           color: Colors.black54,
                         ),
                       ),
@@ -215,16 +213,15 @@ class ShareCard extends StatelessWidget {
                   Text(
                     "Sharing",
                     style: TextStyle(
-                      fontSize: MySize.getHeight(13),
+                      fontSize: MySize.getHeight(16),
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
-                  SizedBox(height: MySize.getHeight(2)),
                   Text(
                     "Share the app with others",
                     style: TextStyle(
-                      fontSize: MySize.getHeight(10),
+                      fontSize: MySize.getHeight(12),
                       color: Colors.black54,
                     ),
                   ),
@@ -289,16 +286,15 @@ class InfoCard extends GetWidget<SettingScreenController> {
                       Text(
                         "Information",
                         style: TextStyle(
-                          fontSize: MySize.getHeight(13),
+                          fontSize: MySize.getHeight(16),
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-                      SizedBox(height: MySize.getHeight(2)),
                       Text(
                         "Legal and app information",
                         style: TextStyle(
-                          fontSize: MySize.getHeight(10),
+                          fontSize: MySize.getHeight(12),
                           color: Colors.black54,
                         ),
                       ),
@@ -405,7 +401,7 @@ class PremiumFeatureTile extends StatelessWidget {
             child: Text(
               title,
               style: TextStyle(
-                fontSize: MySize.getHeight(12),
+                fontSize: MySize.getHeight(14),
                 color: Colors.black,
               ),
             ),
@@ -493,7 +489,7 @@ class _OptionTile extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              fontSize: MySize.getHeight(12),
+              fontSize: MySize.getHeight(14),
               color: Colors.black,
               fontWeight: FontWeight.w500,
             ),

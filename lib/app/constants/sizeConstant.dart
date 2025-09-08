@@ -485,9 +485,7 @@ void showCommonDialog({
                 child: Text(
                   buttonText,
                   style: const TextStyle(
-                    color:
-                        Colors
-                            .blue, // yaha apka ColorConstants.primaryColor laga do
+                    color: Colors.blue,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

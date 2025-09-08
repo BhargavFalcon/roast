@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:roast/app/constants/api_constants.dart';
 import 'package:roast/app/constants/color_constant.dart';
+import 'package:roast/app/constants/feedback.dart';
 import 'package:roast/app/constants/image_constants.dart';
 import 'package:roast/app/constants/sizeConstant.dart';
 import 'package:roast/app/constants/subscriptionService.dart';
@@ -83,7 +84,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            "Roast App",
+            "Roast Me",
             style: TextStyle(
               fontSize: MySize.getHeight(24),
               fontWeight: FontWeight.bold,
@@ -187,7 +188,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
       icon: ImageConstant.drama,
       title: "Pick Your Poison",
       subtitle:
-          "Pick your roast style to match your vibe.The \nmore unhinged, the better",
+          "Pick your roast style to match your vibe.The more unhinged, the better",
       child: Column(
         children: [
           Row(
@@ -229,7 +230,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
       icon: ImageConstant.target,
       title: "Choose Your Targets",
       subtitle:
-          "What should we roast? The more you pick, the \nmore brutal the result.",
+          "What should we roast? The more you pick, the more brutal the result.",
       child: Column(
         children: [
           Row(
@@ -288,7 +289,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -354,11 +355,8 @@ class RoastScreenView extends GetView<RoastScreenController> {
     double? fontSize,
   }) {
     return Container(
+      height: MySize.getHeight(60),
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-      padding: EdgeInsets.symmetric(
-        vertical: 6,
-        horizontal: label.length > 10 ? 10 : 12,
-      ),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -558,7 +556,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
       onTap: _handleRoastButtonTap,
       child: Container(
         width: double.infinity,
-        height: MySize.getHeight(40),
+        height: MySize.getHeight(50),
         decoration: BoxDecoration(
           color: ColorConstants.primaryColor,
           borderRadius: BorderRadius.circular(15),
@@ -616,6 +614,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
   }
 
   void _handleRoastButtonTap() async {
+    FeedbackManager.incrementButtonClick(Get.context!);
     if (controller.imageFile.value == null) {
       showCommonDialog(
         title: 'Oops!',

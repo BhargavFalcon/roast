@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:roast/app/constants/api_constants.dart';
 import 'package:roast/app/constants/color_constant.dart';
+import 'package:roast/app/constants/daily_Notifications.dart';
 import 'package:roast/app/constants/image_constants.dart';
 import 'package:roast/app/constants/sizeConstant.dart';
 import 'package:roast/main.dart';
@@ -147,8 +148,10 @@ class StayLoopView extends GetView<StayLoopController> {
             ),
             Spacer(),
             InkWell(
-              onTap: () {
+              onTap: () async {
                 box.write(ArgumentConstant.start, true);
+                await NotificationService.instance.init();
+                await NotificationService.instance.scheduleDailyNotifications();
                 Get.offAllNamed(Routes.MAIN_HOME);
               },
               child: Container(

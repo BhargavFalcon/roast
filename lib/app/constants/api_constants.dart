@@ -8,4 +8,5 @@ class ArgumentConstant {
   static const roastCoin = "roastCoin";
   static const url = "url";
   static const appTitle = "appTitle";
+  static const buttonClickCountKey = "buttonClickCountKey";
 }

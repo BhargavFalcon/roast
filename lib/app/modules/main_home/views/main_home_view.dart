@@ -34,8 +34,14 @@ class MainHomeView extends GetWidget<MainHomeController> {
           ),
           child: BottomNavigationBar(
             currentIndex: controller.selectedIndex.value,
-            selectedFontSize: MySize.getHeight(10),
-            unselectedFontSize: MySize.getHeight(10),
+            selectedLabelStyle: TextStyle(
+              fontSize: MySize.getHeight(12),
+              fontWeight: FontWeight.bold,
+            ),
+            unselectedLabelStyle: TextStyle(
+              fontSize: MySize.getHeight(12),
+              fontWeight: FontWeight.bold,
+            ),
             selectedItemColor: ColorConstants.primaryColor,
             unselectedItemColor: Colors.grey,
             elevation: 0,
@@ -45,7 +51,7 @@ class MainHomeView extends GetWidget<MainHomeController> {
               BottomNavigationBarItem(
                 icon: Image.asset(
                   ImageConstant.fill_medium,
-                  height: MySize.getHeight(18),
+                  height: MySize.getHeight(20),
                   color:
                       (controller.selectedIndex.value == 0)
                           ? ColorConstants.primaryColor
@@ -56,7 +62,7 @@ class MainHomeView extends GetWidget<MainHomeController> {
               BottomNavigationBarItem(
                 icon: Image.asset(
                   ImageConstant.history,
-                  height: MySize.getHeight(18),
+                  height: MySize.getHeight(20),
                   color:
                       (controller.selectedIndex.value == 1)
                           ? ColorConstants.primaryColor
@@ -67,7 +73,7 @@ class MainHomeView extends GetWidget<MainHomeController> {
               BottomNavigationBarItem(
                 icon: Image.asset(
                   ImageConstant.settings,
-                  height: MySize.getHeight(18),
+                  height: MySize.getHeight(20),
                   color:
                       (controller.selectedIndex.value == 2)
                           ? ColorConstants.primaryColor

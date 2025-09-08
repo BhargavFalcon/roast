@@ -7,8 +7,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:roast/app/constants/api_constants.dart';
-
-import 'app/constants/daily_Notifications.dart';
 import 'app/routes/app_pages.dart';
 
 final box = GetStorage();
@@ -32,8 +30,6 @@ void main() async {
 
   await GetStorage.init();
   box.writeIfNull(ArgumentConstant.roastCoin, 3);
-  await NotificationService.instance.init();
-  await NotificationService.instance.scheduleDailyNotifications();
   await Purchases.setLogLevel(LogLevel.debug);
   await Purchases.configure(PurchasesConfiguration(apiKey));
   runApp(
