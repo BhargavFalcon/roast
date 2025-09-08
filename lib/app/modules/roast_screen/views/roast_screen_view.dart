@@ -356,7 +356,8 @@ class RoastScreenView extends GetView<RoastScreenController> {
   }) {
     return Container(
       height: MySize.getHeight(60),
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
