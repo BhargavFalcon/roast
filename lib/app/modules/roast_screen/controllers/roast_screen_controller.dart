@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -9,6 +7,7 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:roast/app/constants/api_constants.dart';
+import 'package:roast/app/constants/feedback.dart';
 import 'package:roast/app/constants/image_constants.dart';
 import 'package:roast/app/constants/sizeConstant.dart';
 import 'package:roast/app/model/historyModel.dart';
@@ -87,6 +86,12 @@ class RoastScreenController extends GetxController {
         ChooseTargetList.value = List<Selector>.from(
           (targetList as List).map((item) => Selector.fromJson(item)),
         );
+      }
+      final burnLevel = box.read(ArgumentConstant.burnLevel) ?? "medium";
+      if (!isNullEmptyOrFalse(burnLevel)) {
+        for (var level in burnLevelList) {
+          level.isSelected.value = level.label == burnLevel;
+        }
       }
     });
     super.onInit();
@@ -315,7 +320,6 @@ class RoastScreenController extends GetxController {
     return await imageFile.readAsBytes();
   }
 
-
   @override
   void onReady() {
     super.onReady();
@@ -328,10 +332,10 @@ class RoastScreenController extends GetxController {
 }
 
 class BurnModel {
-  final String label;
-  final String selectedIcon;
-  final String unselectedIcon;
-  final RxBool isSelected = false.obs;
+  String? label;
+  String? selectedIcon;
+  String? unselectedIcon;
+  RxBool isSelected = false.obs;
 
   BurnModel({
     required this.label,
@@ -340,6 +344,20 @@ class BurnModel {
     bool isSelected = false,
   }) {
     this.isSelected.value = isSelected;
+  }
+  BurnModel.fromJson(Map<String, dynamic> json) {
+    label = json['label'];
+    selectedIcon = json['selectedIcon'];
+    unselectedIcon = json['unselectedIcon'];
+    isSelected.value = json['isSelected'] ?? false;
+  }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['label'] = label;
+    data['selectedIcon'] = selectedIcon;
+    data['unselectedIcon'] = unselectedIcon;
+    data['isSelected'] = isSelected.value;
+    return data;
   }
 }
 

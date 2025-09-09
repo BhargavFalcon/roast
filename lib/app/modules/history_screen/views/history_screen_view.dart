@@ -26,8 +26,8 @@ class HistoryScreenView extends GetView<HistoryScreenController> {
           return Padding(
             padding: EdgeInsets.only(
               top: MediaQuery.of(context).padding.top + 5,
-              left: 10,
-              right: 10,
+              left: 15,
+              right: 15,
             ),
             child: Column(
               children: [

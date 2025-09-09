@@ -457,7 +457,8 @@ class RoastPreviewScreenView extends GetWidget<RoastPreviewScreenController> {
                         await file.writeAsBytes(pngBytes);
                         await SharePlus.instance.share(
                           ShareParams(
-                            text: controller.roastList[currentIndex],
+                            text:
+                                "Made with Roast Me app: https://apps.apple.com/us/app/roast-me/id6751572645",
                             files: [XFile(file.path)],
                             subject: 'Roast Me',
                           ),

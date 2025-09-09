@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "781596720443",
+    "project_id": "roast-me-f760f",
+    "storage_bucket": "roast-me-f760f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781596720443:android:293128822e412cbf7f0b1e",
+        "android_client_info": {
+          "package_name": "com.falconapps.roastme"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDCIvUhDo-idwwKtNIjkgsCrj22pjnYM0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

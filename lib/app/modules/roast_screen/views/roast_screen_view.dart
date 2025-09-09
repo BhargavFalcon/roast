@@ -7,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:roast/app/constants/api_constants.dart';
 import 'package:roast/app/constants/color_constant.dart';
-import 'package:roast/app/constants/feedback.dart';
 import 'package:roast/app/constants/image_constants.dart';
 import 'package:roast/app/constants/sizeConstant.dart';
 import 'package:roast/app/constants/subscriptionService.dart';
@@ -162,7 +161,9 @@ class RoastScreenView extends GetView<RoastScreenController> {
                       onTap: () => _selectBurnLevel(burn),
                       child: _buildSelectionItem(
                         icon: Image.asset(
-                          isSelected ? burn.selectedIcon : burn.unselectedIcon,
+                          isSelected
+                              ? burn.selectedIcon!
+                              : burn.unselectedIcon!,
                           height: MySize.getHeight(18),
                           color:
                               isSelected
@@ -171,7 +172,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
                                     alpha: 0.5,
                                   ),
                         ),
-                        label: burn.label.capitalizeFirst ?? "",
+                        label: burn.label!.capitalizeFirst ?? "",
                         isSelected: isSelected,
                       ),
                     ),
@@ -188,7 +189,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
       icon: ImageConstant.drama,
       title: "Pick Your Poison",
       subtitle:
-          "Pick your roast style to match your vibe.The more unhinged, the better",
+          "Pick your roast style to match your vibe. The more unhinged, the better",
       child: Column(
         children: [
           Row(
@@ -592,6 +593,12 @@ class RoastScreenView extends GetView<RoastScreenController> {
       item.isSelected.value = false;
     }
     burn.isSelected.value = true;
+    box.write(
+      ArgumentConstant.burnLevel,
+      controller.burnLevelList
+          .firstWhere((item) => item.isSelected.value)
+          .label,
+    );
   }
 
   Future<void> handleCameraSelection(BuildContext context) async {
@@ -623,7 +630,6 @@ class RoastScreenView extends GetView<RoastScreenController> {
       );
       return;
     }
-    FeedbackManager.incrementButtonClick(Get.context!);
     if (box.read(ArgumentConstant.roastCoin) <= 0 &&
         !(await SubscriptionService.hasActiveSubscription())) {
       await SubscriptionService().presentPaywall();
@@ -635,7 +641,7 @@ class RoastScreenView extends GetView<RoastScreenController> {
         String selectedBurn =
             controller.burnLevelList
                 .firstWhere((burn) => burn.isSelected.value)
-                .label;
+                .label!;
 
         List<String> style =
             controller.PickPoisonList.where(
