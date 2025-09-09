@@ -76,7 +76,6 @@ class RoastScreenController extends GetxController {
   @override
   void onInit() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await requestTrackingPermission();
       final poisonList = box.read(ArgumentConstant.poison) ?? [];
       if (!isNullEmptyOrFalse(poisonList)) {
         PickPoisonList.value = List<Selector>.from(
@@ -316,14 +315,6 @@ class RoastScreenController extends GetxController {
     return await imageFile.readAsBytes();
   }
 
-  Future<void> requestTrackingPermission() async {
-    if (Platform.isIOS) {
-      final status = await AppTrackingTransparency.trackingAuthorizationStatus;
-      if (status == TrackingStatus.notDetermined) {
-        await AppTrackingTransparency.requestTrackingAuthorization();
-      }
-    }
-  }
 
   @override
   void onReady() {
