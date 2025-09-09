@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,6 +33,8 @@ void main() async {
   box.writeIfNull(ArgumentConstant.roastCoin, 3);
   await Purchases.setLogLevel(LogLevel.debug);
   await Purchases.configure(PurchasesConfiguration(apiKey));
+  await dotenv.load(fileName: ".env");
+  print("API URL: ${dotenv.env['API_KEY']}");
   runApp(
     GetMaterialApp(
       title: "Application",

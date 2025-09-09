@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -192,7 +193,10 @@ class RoastScreenController extends GetxController {
   }
 
   Map<String, String> _buildHeaders() {
-    return {"Content-Type": "application/json", "Authorization": "Bearer "};
+    return {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ${dotenv.env['API_KEY']}",
+    };
   }
 
   Map<String, dynamic> _buildRequestBody(
