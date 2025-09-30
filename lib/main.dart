@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -49,6 +50,7 @@ void main() async {
   await Purchases.configure(PurchasesConfiguration(apiKey));
   await dotenv.load(fileName: ".env");
   print("API URL: ${dotenv.env['API_KEY']}");
+  await requestTrackingPermission();
   runApp(
     GetMaterialApp(
       title: "Application",
@@ -58,4 +60,12 @@ void main() async {
       theme: ThemeData(fontFamily: GoogleFonts.rubik().fontFamily),
     ),
   );
+}
+Future<void> requestTrackingPermission() async {
+  if (Platform.isIOS) {
+    final status = await AppTrackingTransparency.trackingAuthorizationStatus;
+    if (status == TrackingStatus.notDetermined) {
+      await AppTrackingTransparency.requestTrackingAuthorization();
+    }
+  }
 }

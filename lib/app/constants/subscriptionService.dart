@@ -2,7 +2,7 @@ import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:purchases_ui_flutter/purchases_ui_flutter.dart';
 
 class SubscriptionService {
-  static const _yearlyId = "com.falconapps.roastme.yearly";
+  static const _yearlyId = "com.falconapps.roastme.yearly1";
   static const _weeklyId = "com.falconapps.roastme.weekly";
 
   static Future<CustomerInfo?> _getCustomerInfo() async {
