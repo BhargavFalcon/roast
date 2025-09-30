@@ -16,8 +16,6 @@ class MainHomeController extends GetxController {
     super.onInit();
   }
 
-
-
   void changeTab(int index) {
     selectedIndex.value = index;
     pageController.jumpToPage(index);
